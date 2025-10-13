@@ -1,0 +1,3 @@
+Fazer o controle de mesas.
+Parte do garçom: 
+    - Selecionar a mesa.

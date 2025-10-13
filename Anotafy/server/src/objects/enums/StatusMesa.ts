@@ -1,0 +1,8 @@
+export enum StatusMesa {
+	LIVRE,
+	OCUPADA,
+	EM_FECHAMENTO,
+	AGUARDANDO_LIMPEZA,
+	RESERVADA,
+	BLOQUEADA,
+}

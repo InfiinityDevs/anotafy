@@ -1,0 +1,16 @@
+{
+  "name": "anotafy-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:server": "yarn --cwd server dev",
+    "dev:client": "yarn --cwd client dev",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"green,blue\" \"yarn dev:server\" \"yarn dev:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
