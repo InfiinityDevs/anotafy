@@ -11,13 +11,13 @@ export default function Logo({ size, className = '' }: LogoProps) {
 
     return (
         <div
-            className={`flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary ` + className}
+            className={`flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary text-white ${className}`}
             style={{
                 width: pai,
                 height: pai,
             }}
         >
-            <ChefHat className="text-primary-foreground" style={{height : filho, width: filho}}/>
+            <ChefHat style={{height : filho, width: filho}}/>
         </div>
     );
 }

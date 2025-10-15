@@ -8,10 +8,10 @@ type LayoutProps = {
 
 export default function Layout({ sidebar, content }: LayoutProps) {
     return (
-        <div className="w-full h-screen bg-background-2">
+        <div className="w-full h-screen bg-backgound">
             <div className="relative flex flex-row h-full w-full">
                 <aside className="w-full flex items-center">{sidebar}</aside>
-                <main className="flex-1">{content}</main>
+                <main>{content}</main>
             </div>
         </div>
     );
