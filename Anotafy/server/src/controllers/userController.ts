@@ -25,13 +25,7 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-	try {
-		const { name, email } = req.body;
-		const newUser = await userService.createUser({ name, email });
-		res.status(201).json(newUser);
-	} catch (error) {
-		if (error instanceof Error) {
-			res.status(400).json({ message: error.message });
-		}
-	}
+    const { name, email } = req.body;
+    const newUser = await userService.createUser({ name, email });
+    res.status(201).json(newUser);
 };
