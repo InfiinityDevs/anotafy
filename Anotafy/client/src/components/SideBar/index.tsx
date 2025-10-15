@@ -1,20 +1,20 @@
-import { useState } from "react";
 import Logo from "../Logo";
-import { Clock, CreditCard, LayoutDashboard, Settings, Users } from "lucide-react";
 
-export default function SideBar() {
-    const [active, setActive] = useState("dashboard");
+interface ItemsSideBarProps {
+    label: string,
+    icon: React.FC<{size: number}>,
+    id: string,
+    action: () => void
+}
+ 
+interface SideBarProps {
+    items: ItemsSideBarProps[],
+    active: string
+}
 
-    const menuItems = [
-        { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-        { id: "teams", label: "Teams", icon: Users },
-        { id: "payments", label: "Payments", icon: CreditCard },
-        { id: "attendance", label: "Attendance", icon: Clock },
-        { id: "settings", label: "Settings", icon: Settings },
-    ];
-
+export default function SideBar({ items, active }: SideBarProps) {
     return (
-        <div className="bg-white w-[18%] h-[95%] ml-[1.5%] flex flex-col items-center p-6 justify-start rounded-4xl">
+        <div className="bg-white w-[18%] h-[95%] ml-[1.5%] flex flex-col items-center p-6 justify-start rounded-4xl shadow-shadow shadow-[5px_5px_7px]">
                 {/* Logo */}
                 <div className="flex items-center gap-3 mb-8">
                     <Logo size={12}/>
@@ -24,21 +24,21 @@ export default function SideBar() {
                 </div>
 
                 {/* Menu Items */}
-                <nav className="space-y-4">
-                    {menuItems.map((item) => {
+                <nav className="w-full flex flex-col gap-4">
+                    {items.map((item) => {
                         const Icon = item.icon;
                         const isActive = active === item.id;
                         return (
                             <button
                                 key={item.id}
-                                onClick={() => setActive(item.id)}
-                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                                onClick={() => item.action()}
+                                className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                                     isActive
-                                        ? "bg-gray-100 text-gray-900"
-                                        : "text-gray-600 hover:text-gray-900"
-                                }`}
+                                        ? "bg-primary text-white"
+                                        : "text-text"
+                                } hover:bg-primary hover:text-white`}
                             >
-                                <Icon size={20} />
+                                <Icon size={20}/>
                                 <span className="font-medium">
                                     {item.label}
                                 </span>
