@@ -8,7 +8,7 @@ export default function Routers() {
 		<Router>
 			<Routes>
 				<Route path="*" element={<NotFound />} />
-				<Route path="/" element={<Login />} />
+				<Route path="/login" element={<Login />} />
 				<Route path="/home" element={<Home />} />
 			</Routes>
 		</Router>

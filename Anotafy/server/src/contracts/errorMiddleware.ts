@@ -8,12 +8,12 @@ interface IErrorMiddleware {
     next: NextFunction;
 }
 
-export default function errorMiddleware({
-    err,
-    req,
-    res,
-    next,
-}: IErrorMiddleware) {
+export default function errorMiddleware(
+    err: Error,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     if (err instanceof ApiException) {
         return res.status(err.Status).json({
             status: err.Status,
@@ -23,7 +23,7 @@ export default function errorMiddleware({
         });
     }
 
-    console.error(err);
+    console.error(err.message);
 
     return res.status(500).json({
         status: 500,

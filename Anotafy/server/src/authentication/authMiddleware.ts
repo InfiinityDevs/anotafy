@@ -2,11 +2,11 @@
 import { Request, Response, NextFunction } from "express";
 import { ITokenPayload, JwtService } from "./jwtService";
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
     user?: ITokenPayload;
 }
 
-export function protectd(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
+export function protect(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
     const token = req.cookies.token;
 
     if (!token) {

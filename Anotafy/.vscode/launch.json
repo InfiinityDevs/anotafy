@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // OPÇÃO A (Recomendada): Inicia o seu script 'yarn dev' e anexa o depurador automaticamente.
+            "type": "node",
+            "request": "launch",
+            "name": "Depurar: yarn dev",
+            "runtimeExecutable": "yarn", // Executa o yarn
+            "runtimeArgs": ["dev"], // Passa o argumento 'dev' para o yarn
+            "console": "integratedTerminal", // Mostra o output no terminal integrado
+            "restart": true,
+            "protocol": "inspector"
+        },
+    ]
+}

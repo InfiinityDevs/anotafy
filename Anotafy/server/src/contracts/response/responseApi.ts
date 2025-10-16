@@ -7,7 +7,7 @@ interface IRes {
 
 interface IOk extends IRes {
     message: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 interface ICreated extends IRes {
@@ -39,7 +39,7 @@ export default class ResponseApi {
             status: 200,
             success: true,
             message: message ?? null,
-            data: data ?? null,
+            ...(data && { data }),
         });
     }
 
@@ -47,8 +47,8 @@ export default class ResponseApi {
         return res.status(201).json({
             status: 201,
             success: true,
-            message: message ?? null,
-            data: data ?? null,
+            message: message,
+            ...(data && { data }),
         });
     }
 
