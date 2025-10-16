@@ -19,7 +19,7 @@ export default function errorMiddleware(
             status: err.Status,
             success: false,
             message: err.message,
-            errors: err.Errors ?? null,
+            ...(err.Errors && { errors: err.Errors }),
         });
     }
 
