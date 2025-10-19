@@ -1,23 +1,15 @@
 import { ChefHat } from "lucide-react";
 
-interface LogoProps{
-    size: number;
+interface LogoProps {
     className?: string;
 }
 
-export default function Logo({ size, className = '' }: LogoProps) {
-    const pai = size * 0.25 + "rem";
-    const filho = (size * 0.25) * 0.55 + "rem";
-
+export default function Logo({ className = "" }: LogoProps) {
     return (
         <div
-            className={`flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary text-white ${className}`}
-            style={{
-                width: pai,
-                height: pai,
-            }}
+            className={`flex aspect-square items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-backgound-gray text-white ${className}`}
         >
-            <ChefHat style={{height : filho, width: filho}}/>
+            <ChefHat className="h-[55%] w-[55%]" />
         </div>
     );
 }

@@ -1,20 +1,26 @@
-import { CircleDollarSign, HandPlatter, Wallet } from "lucide-react";
+import { CircleDollarSign, HandPlatter, icons, Settings, Wallet } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useState, type ReactNode } from "react";
 import SideBar from "../../components/SideBar";
+import Garcom from "./Garcom";
+import Caixa from "./Caixa";
+import Financeiro from "./Financeiro";
+import Configuracao from "./Configuracao";
 
 const enumItemsMenu = {
     GARCOM: "garcom",
     CAIXA: "caixa",
     FINANCEIRO: "financeiro",
+    CONFIGURACAO: "config"
 } as const;
 
 type ItemsMenu = (typeof enumItemsMenu)[keyof typeof enumItemsMenu];
 
 const contentScreen : Record<ItemsMenu, ReactNode> = {
-    [enumItemsMenu.GARCOM] : <div>Garçom Content</div>,
-    [enumItemsMenu.CAIXA] : <div>Caixa Content</div>,
-    [enumItemsMenu.FINANCEIRO] : <div>Financeiro Content</div>
+    [enumItemsMenu.GARCOM] : <Garcom/>,
+    [enumItemsMenu.CAIXA] : <Caixa/>,
+    [enumItemsMenu.FINANCEIRO] : <Financeiro/>,
+    [enumItemsMenu.CONFIGURACAO] : <Configuracao/>
 };
 
 export default function Home() {
@@ -41,6 +47,12 @@ export default function Home() {
             id: enumItemsMenu.FINANCEIRO,
             action: () => setActiveScreen(enumItemsMenu.FINANCEIRO),
         },
+        {
+            label: "Configurações", 
+            icon: Settings, 
+            id: enumItemsMenu.CONFIGURACAO,
+            action: () => setActiveScreen(enumItemsMenu.CONFIGURACAO)
+        }
     ];
 
     return (

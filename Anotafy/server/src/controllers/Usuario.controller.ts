@@ -15,7 +15,6 @@ export default class UserController implements IController {
         this.router.post("/login", this.login);
     }
 
-    // Corrigido: Métodos transformados em arrow functions para manter o contexto 'this'
     private login = (req: Request, res: Response, next: NextFunction) => {
         const request: RequestLoginDTO = new RequestLoginDTO(req.body);
         

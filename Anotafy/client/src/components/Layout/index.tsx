@@ -10,8 +10,10 @@ export default function Layout({ sidebar, content }: LayoutProps) {
     return (
         <div className="w-full h-screen bg-backgound">
             <div className="relative flex flex-row h-full w-full">
-                <aside className="w-full flex items-center">{sidebar}</aside>
-                <main>{content}</main>
+                {sidebar}
+                <main className="py-12 w-full h-full">
+                    {content}
+                </main>
             </div>
         </div>
     );

@@ -137,10 +137,13 @@ html {
 }
 
 @theme {
-    --color-primary: #0055e7;
+    --color-primary: #3b82f6;
     --color-backgound: #EBEBEB;
+    --color-backgound-gray: #1f2937;
     --color-foreground: #fff;
     --color-shadow: #0000004d;
+    
+    --color-text-gray-light: #ececec;
     --color-text: #4a5565;
 
     --font-poppins: Poppins, "sans-serif";
@@ -155,5 +158,5 @@ html {
 }
 
 .teste {
-    background-color: color(#c008084d);
+    background-color: color(#ececec);
 }
