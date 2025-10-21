@@ -9,7 +9,7 @@ export default function Login() {
         <div className="min-h-screen bg-gradient-to-br from-gray-400 to-gray-5d0 flex items-center justify-center p-4">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
                 <div className="flex justify-center mb-4">
-                    <Logo size={16} />
+                    <Logo className="w-16" />
                 </div>
 
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">

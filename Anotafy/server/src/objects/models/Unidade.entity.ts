@@ -25,43 +25,43 @@ export class Unidade {
     @OneToMany(() => Unidade, (unidade) => unidade.Matriz, { nullable: true })
     UnidadesFiliais?: Unidade[];
 
-    @Column({ length: 150, nullable: false })
+    @Column({ type: "varchar", length: 150, nullable: false })
     Nome!: string;
 
     @Column({ type: "enum", enum: TipoUnidade, nullable: false })
     TipoUnidade!: TipoUnidade;
 
-    @Column({ length: 14, nullable: false })
+    @Column({ type: "varchar", length: 14, nullable: false })
     Cnpj!: string;
 
-    @Column({ length: 8, nullable: false })
+    @Column({ type: "varchar", length: 8, nullable: false })
     Cep!: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ type: "varchar", length: 150, nullable: false })
     Logradouro!: string;
 
-    @Column({ length: 10, nullable: false })
+    @Column({ type: "varchar", length: 10, nullable: false })
     Numero!: string;
 
-    @Column({ length: 300, nullable: true })
+    @Column({ type: "varchar", length: 300, nullable: true })
     Complemento?: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ type: "varchar", length: 150, nullable: false })
     Bairro!: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ type: "varchar", length: 150, nullable: false })
     Cidade!: string;
 
-    @Column({ length: 2, nullable: false })
+    @Column({ type: "varchar", length: 2, nullable: false })
     Estado!: string;
 
-    @Column({ length: 7, nullable: false })
+    @Column({ type: "varchar", length: 7, nullable: false })
     CodigoMunicipioIbge!: string;
 
-    @Column({ length: 11, nullable: false })
+    @Column({ type: "varchar", length: 11, nullable: false })
     Telefone!: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ type: "varchar", length: 150, nullable: false })
     Email!: string;
 
     @Column({ type: "enum", enum: StatusUnidade, nullable: false })

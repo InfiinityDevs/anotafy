@@ -4,7 +4,7 @@ import ExceptionBadRequest from "../exceptions/exceptionBadRequest";
 class Cnpj extends Notation {
     protected action(value: any, propertyKey: string): void {
         if (typeof value !== "string") {
-            throw new ExceptionBadRequest(
+            this.returnError(
                 `O campo ${propertyKey} deve ser uma string.`
             );
         }
@@ -12,7 +12,7 @@ class Cnpj extends Notation {
         const cnpjLimpo = value.replace(/[^\d]+/g, "");
 
         if (cnpjLimpo.length !== 14 || /^(\d)\1+$/.test(cnpjLimpo)) {
-            throw new ExceptionBadRequest(
+            this.returnError(
                 `O campo ${propertyKey} não contém um CNPJ válido.`
             );
         }
@@ -30,7 +30,7 @@ class Cnpj extends Notation {
 
         let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
         if (resultado !== parseInt(digitos.charAt(0))) {
-            throw new ExceptionBadRequest(
+            this.returnError(
                 `O campo ${propertyKey} não contém um CNPJ válido.`
             );
         }

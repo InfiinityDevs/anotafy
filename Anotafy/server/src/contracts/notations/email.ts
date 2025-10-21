@@ -1,5 +1,4 @@
 import { Notation } from "../baseNotation";
-import ExceptionBadRequest from "../exceptions/exceptionBadRequest";
 
 class Email extends Notation {
     protected action(value: any, propertyKey: string): void {

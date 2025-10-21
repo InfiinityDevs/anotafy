@@ -1,21 +1,14 @@
-import {
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    PrimaryColumn,
-    PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Comanda } from "./Comanda.entity";
 import { Produto } from "./Produto.entity";
 import { Usuario } from "./Usuario.entity";
 
 @Entity("item_comanda")
 export class ItemComanda {
-    @PrimaryColumn()
+    @PrimaryColumn({ type: "int" })
     ComandaId!: number;
 
-    @PrimaryColumn()
+    @PrimaryColumn({ type: "int" })
     ProdutoId!: number;
 
     @ManyToOne(() => Comanda, (comanda) => comanda.ItensComanda)

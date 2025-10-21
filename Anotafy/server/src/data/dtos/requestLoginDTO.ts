@@ -1,3 +1,4 @@
+import { validateInput } from "../../contracts/classNotations/validateInput";
 import { required } from "../../contracts/notations/required";
 
 export interface IRequestLoginDTO {
@@ -5,6 +6,7 @@ export interface IRequestLoginDTO {
     senha: string;
 }
 
+@validateInput
 export class RequestLoginDTO {
     @required
     public Login: string;

@@ -1,13 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ApiException from "./apiException";
 
-interface IErrorMiddleware {
-    err: Error;
-    req: Request;
-    res: Response;
-    next: NextFunction;
-}
-
 export default function errorMiddleware(
     err: Error,
     req: Request,

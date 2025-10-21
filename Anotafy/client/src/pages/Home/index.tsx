@@ -1,6 +1,6 @@
-import { CircleDollarSign, HandPlatter, icons, Settings, Wallet } from "lucide-react";
+import { CircleDollarSign, HandPlatter, Settings, Wallet } from "lucide-react";
 import Layout from "../../components/Layout";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import SideBar from "../../components/SideBar";
 import Garcom from "./Garcom";
 import Caixa from "./Caixa";
@@ -24,6 +24,10 @@ const contentScreen : Record<ItemsMenu, ReactNode> = {
 };
 
 export default function Home() {
+    useEffect(() => {
+        document.title = "Anotafy - Home";
+    }, []);
+
     const [activeScreen, setActiveScreen] = useState<ItemsMenu>(
         enumItemsMenu.GARCOM
     );
