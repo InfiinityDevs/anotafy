@@ -4,11 +4,13 @@ import { useState } from "react";
 import { UsuarioService } from "../../service/usuarioService";
 import Alert from "../../components/Alert";
 import type Response from "../../types/response";
+import RadioButton from "../../components/RadioButton";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [login, setLogin] = useState<string>("");
     const [senha, setSenha] = useState<string>("");
+    const [remember, setRemember] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [alert, setAlert] = useState<{
         type: "error" | "success";
@@ -67,7 +69,7 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-linear-to-br from-gray-100 to-gray-300 flex items-center justify-center p-4">
             <Alert
                 type={alert.type}
                 message={alert.message}
@@ -77,7 +79,7 @@ export default function Login() {
                 onClose={() => setAlert({ ...alert, open: false })}
             />
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
-                <div className="flex justify-center mb-4">
+                <div className={`flex justify-center mb-4`}>
                     <Logo className="w-16" />
                 </div>
 
@@ -137,6 +139,14 @@ export default function Login() {
                                     <Eye size={20} className="cursor-pointer" />
                                 )}
                             </button>
+                        </div>
+                        <div className="mt-1 flex items-center justify-between  ">
+                            <RadioButton
+                                selected={remember}
+                                onChange={setRemember}
+                                label={"Lembrar-me"}
+                            />
+                        <button type="button" className="text-sm font-medium text-blue-500 hover:underline">Esqueci minha senha</button>
                         </div>
                     </div>
 
