@@ -2,6 +2,9 @@ import { useState } from "react";
 import Logo from "../Logo";
 import { ChevronLeft, LogOut } from "lucide-react";
 import Space from "../Space";
+import { UsuarioService } from "../../service/usuarioService";
+import type { IAlert } from "../Alert";
+import Alert from "../Alert";
 
 interface ItemsSideBarProps {
     label: string;
@@ -17,8 +20,21 @@ interface SideBarProps {
 
 export default function SideBar({ items, active }: SideBarProps) {
     const [openSideBar, setOpenSideBar] = useState<boolean>(true);
+    const [alert, setAlert] = useState<IAlert>({type: "info", title: "", message: "", duration: 4000, open: false});
     const [nameUser, setNameUser] = useState<string>("Gabriel Neto");
     const [typeUser, setTypeUser] = useState<string>("Manager");
+    const userService = new UsuarioService();
+
+    async function Logout() {
+        const response = await userService.logout();
+
+        if (response && response.success) {
+            window.location.reload();
+            return;
+        }
+        
+        setAlert({...alert, title: "Erro", message : "Não foi possível fazer logout.", type: "error", open: true});
+    };
 
     return (
         <aside
@@ -28,6 +44,14 @@ export default function SideBar({ items, active }: SideBarProps) {
                     : "min-w-[7.5%] max-w-[7.5%]"
             } `}
         >
+            <Alert
+                type={alert.type}
+                title={alert.title}
+                message={alert.message}
+                duration={alert.duration}
+                onClose={() => setAlert({ ...alert, open: false })}
+                open={alert.open}
+            />
             <div
                 className={`transition-all duration-300 ease-in-out bg-gradient-to-tl to-backgound-gray from-backgound-gray/85 h-full w-full ml-[1.5%] flex flex-col items-center p-6 justify-start rounded-4xl shadow-shadow shadow-[5px_5px_7px]`}
             >
@@ -147,7 +171,8 @@ export default function SideBar({ items, active }: SideBarProps) {
                             {typeUser}
                         </span>
                     </div>
-                    <div
+                    <button
+                        onClick={Logout}
                         className={`transition-all duration-300 ease-in-out cursor-pointer flex flex-row items-center justify-center   text-white bg-red-700 hover:bg-red-400 p-2 w-min rounded-xl hover:scale-103 ${
                             openSideBar ? "px-6" : "px-2"
                         }`}
@@ -166,11 +191,11 @@ export default function SideBar({ items, active }: SideBarProps) {
                                 } overflow-hidden`}
                             >
                                 <span className="transition-all duration-300 ease-in-out font-bold">
-                                    Sair
+                                    Logout
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </button>
                 </div>
             </div>
         </aside>

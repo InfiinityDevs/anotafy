@@ -13,7 +13,10 @@ export function protect(
 ): void {
     const token = req.cookies.token;
 
-    console.log("Token recebido no middleware:", token);
+    console.log("🔍 Headers recebidos:", Object.keys(req.headers));
+    console.log("🍪 Cookies recebidos:", Object.keys(req.cookies));
+    console.log("🔍 URL da requisição:", req.url);
+    console.log("🔍 Token extraído:", token);
 
     if (!token) {
         throw new ExceptionUnauthorized("Não autorizado, token ausente.");

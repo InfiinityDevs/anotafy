@@ -16,27 +16,53 @@ export default class UserController implements IController {
 
     private initializeRoutes() {
         this.router.post("/login", this.login);
-        this.router.get("/teste", protect, this.teste);
+        this.router.post("/auth", protect, this.auth);
+        this.router.post("/logout", this.logout);
     }
 
+    // UserController - login
     private login = async (req: Request, res: Response, next: NextFunction) => {
-        const request : RequestLoginDTO = new RequestLoginDTO(req.body);
+        const request: RequestLoginDTO = new RequestLoginDTO(req.body);
+        const user = await this.userService.loginUser(request);
 
         if (await this.userService.loginUser(request)) {
             const token = JwtService.generateToken({ id: 1 });
 
+            // ✅ CONFIGURAÇÃO PARA DESENVOLVIMENTO
             res.cookie("token", token, {
-                httpOnly: true, // Protege contra XSS
-                secure: true, // Só envia em HTTPS em produção process.env.NODE_ENV === "production"
-                sameSite: "strict", // Protege contra CSRF
-                maxAge: 3600000, // 1 hora em milissegundos
+                httpOnly: true,
+                secure: false, // false em desenvolvimento
+                sameSite: "lax", // ou "none" se precisar
+                maxAge: 3600000,
+                path: "/",
             });
 
-            ResponseApi.Ok({ res: res, message: "Login bem-sucedido!" });
+            console.log(
+                "🍪 Cookie 'token' definido:",
+                token.substring(0, 20) + "..."
+            );
+
+            ResponseApi.Ok({ res, message: "Login bem-sucedido!" });
         }
     };
 
-    private teste = async (req: Request, res: Response, next: NextFunction) => {
-        ResponseApi.Ok({ res: res, message: "Acesso autorizado a rota protegida!" });
+    private logout = async (req: Request, res: Response, next: NextFunction) => { 
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: false, // false em desenvolvimento
+            sameSite: "lax", // ou "none" se precisar
+            maxAge: 3600000,
+            path: "/",
+        });
+
+        ResponseApi.Ok({ res, message: "Logout bem-sucedido!" });
+    }
+
+    private auth = async (req: Request, res: Response, next: NextFunction) => {
+        console.log("Login attempt for user:", req.headers);
+        ResponseApi.Ok({
+            res: res,
+            message: "Acesso autorizado a rota protegida!",
+        });
     };
 }

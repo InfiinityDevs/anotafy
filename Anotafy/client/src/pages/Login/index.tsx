@@ -1,12 +1,82 @@
-import { Mail, Lock, Eye, EyeOff} from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Logo from "../../components/Logo";
 import { useState } from "react";
+import { UsuarioService } from "../../service/usuarioService";
+import Alert from "../../components/Alert";
+import type Response from "../../types/response";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    
+    const [login, setLogin] = useState<string>("");
+    const [senha, setSenha] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [alert, setAlert] = useState<{
+        type: "error" | "success";
+        titulo: string;
+        message: string;
+        open: boolean;
+        duration: number;
+    }>({ type: "error", titulo: "", message: "", open: false, duration: 4000 });
+    const loginService = new UsuarioService();
+
+    async function loginUser() {
+        setLoading(true);
+
+        try {
+            const response: Response = await loginService.login({
+                login: login,
+                senha: senha,
+            });
+
+            console.log("🔍 Resposta do login:", response);
+
+            if (response.success) {
+                setAlert({
+                    ...alert,
+                    type: "success",
+                    titulo: "Login efetuado com sucesso",
+                    message: "Você foi logado com sucesso! Redirecionando...",
+                    open: true,
+                });
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                setAlert({
+                    ...alert,
+                    type: "error",
+                    titulo: "Erro ao efetuar login",
+                    message:
+                        response.message ||
+                        "Verifique suas credenciais e tente novamente.",
+                    open: true,
+                });
+            }
+        } catch (error: any) {
+            console.error("❌ Erro no login:", error);
+            setAlert({
+                ...alert,
+                type: "error",
+                titulo: "Erro de conexão",
+                message: "Erro ao conectar com o servidor. Tente novamente.",
+                open: true,
+            });
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-400 to-gray-5d0 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center p-4">
+            <Alert
+                type={alert.type}
+                message={alert.message}
+                title={alert.titulo}
+                open={alert.open}
+                duration={alert.duration}
+                onClose={() => setAlert({ ...alert, open: false })}
+            />
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
                 <div className="flex justify-center mb-4">
                     <Logo className="w-16" />
@@ -16,21 +86,24 @@ export default function Login() {
                     Anotafy
                 </h1>
                 <p className="text-center text-gray-600 mb-4">
-                    Sistema para a gestão do seu restaurente!
+                    Sistema para a gestão do seu restaurante!
                 </p>
 
-                <form className="space-y-6">
+                <div className="space-y-6">
                     <div>
                         <label className="block text-md font-medium text-gray-700 mb-2">
-                            Email
+                            Usuário
                         </label>
                         <div className="flex px-2 items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 transition-colors focus-within:border-black">
                             <Mail size={20} className=" text-gray-500" />
                             <input
+                                onChange={(e) => setLogin(e.target.value)}
                                 type="text"
-                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg"
+                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
                                 placeholder="Digite seu usuário"
                                 required
+                                value={login}
+                                disabled={loading} // ✅ Desabilita durante loading
                             />
                         </div>
                     </div>
@@ -40,21 +113,21 @@ export default function Login() {
                             Senha
                         </label>
                         <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 transition-colors focus-within:border-black px-2.5">
-                            <Lock
-                                size={20}
-                                className=" text-gray-500"
-                            />
+                            <Lock size={20} className=" text-gray-500" />
                             <input
-                                id="password"
+                                onChange={(e) => setSenha(e.target.value)}
                                 type={showPassword ? "text" : "password"}
-                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg"
+                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
                                 placeholder="Digite sua senha"
                                 required
+                                value={senha}
+                                disabled={loading} // ✅ Desabilita durante loading
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="right-3 text-gray-500 hover:text-gray-700"
+                                className="text-gray-500 hover:text-gray-700"
+                                disabled={loading} // ✅ Desabilita durante loading
                             >
                                 {showPassword ? (
                                     <EyeOff
@@ -69,12 +142,14 @@ export default function Login() {
                     </div>
 
                     <button
-                        type="submit"
+                        type="button"
                         className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg cursor-pointer transition-colors disabled:opacity-50"
+                        disabled={loading}
+                        onClick={loginUser}
                     >
-                        Entrar
+                        {loading ? "Entrando..." : "Entrar"}
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     );
