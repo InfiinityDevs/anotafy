@@ -28,7 +28,6 @@ export default function Login() {
                 senha: senha,
             });
 
-            console.log("🔍 Resposta do login:", response);
 
             if (response.success) {
                 setAlert({

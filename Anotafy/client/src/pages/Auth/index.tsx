@@ -12,17 +12,9 @@ export default function Auth() {
     useEffect(() => {
         async function validation() {
             try {
-                console.log("🔄 Verificando autenticação...");
                 const response = await userService.auth();
-
-                console.log("🔍 Resposta completa:", response);
-                console.log("🔍 Status:", response.status);
-                console.log("🔍 Success:", response.success);
-                console.log("🔍 Message:", response.message);
-
                 setAutenticado(response.success);
             } catch (error) {
-                console.error("❌ Erro na validação:", error);
                 setAutenticado(false);
             } finally {
                 setLoading(false);
@@ -39,6 +31,5 @@ export default function Auth() {
         );
     }
 
-    console.log("🎯 Renderizando:", autenticado ? "Home" : "Login");
     return autenticado ? <Home /> : <Login />;
 }

@@ -24,10 +24,5 @@ export default class Response {
             this.data = axiosResponse.response?.data || null;
         }
 
-        console.log("🔍 Response construído:", {
-            status: this.status,
-            success: this.success,
-            message: this.message,
-        });
     }
 }

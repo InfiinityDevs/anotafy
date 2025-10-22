@@ -37,11 +37,6 @@ export default class UserController implements IController {
                 path: "/",
             });
 
-            console.log(
-                "🍪 Cookie 'token' definido:",
-                token.substring(0, 20) + "..."
-            );
-
             ResponseApi.Ok({ res, message: "Login bem-sucedido!" });
         }
     };
@@ -59,7 +54,6 @@ export default class UserController implements IController {
     }
 
     private auth = async (req: Request, res: Response, next: NextFunction) => {
-        console.log("Login attempt for user:", req.headers);
         ResponseApi.Ok({
             res: res,
             message: "Acesso autorizado a rota protegida!",

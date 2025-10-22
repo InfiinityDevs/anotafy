@@ -30,14 +30,11 @@ export class BaseService {
             withCredentials: true,
         };
 
-        console.log("🔍 Request config:", config);
 
         try {
             const response = await axios.request(config);
-            console.log("✅ Request bem-sucedido:", response.status);
             return new Response(response);
         } catch (error: any) {
-            console.log("❌ Request com erro:", error.response?.status);
             return new Response(error);
         }
     }
