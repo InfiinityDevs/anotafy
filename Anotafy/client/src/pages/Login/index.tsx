@@ -5,6 +5,7 @@ import { UsuarioService } from "../../service/usuarioService";
 import Alert from "../../components/Alert";
 import type Response from "../../types/response";
 import RadioButton from "../../components/RadioButton";
+import Input from "../../components/Input";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -29,7 +30,6 @@ export default function Login() {
                 login: login,
                 senha: senha,
             });
-
 
             if (response.success) {
                 setAlert({
@@ -92,61 +92,41 @@ export default function Login() {
 
                 <div className="space-y-6">
                     <div>
-                        <label className="block text-md font-medium text-gray-700 mb-2">
-                            Usuário
-                        </label>
-                        <div className="flex px-2 items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 transition-colors focus-within:border-black">
-                            <Mail size={20} className=" text-gray-500" />
-                            <input
-                                onChange={(e) => setLogin(e.target.value)}
-                                type="text"
-                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
-                                placeholder="Digite seu usuário"
-                                required
-                                value={login}
-                                disabled={loading} // ✅ Desabilita durante loading
-                            />
-                        </div>
+                        <Input
+                            type="text"
+                            value={login}
+                            onChange={setLogin}
+                            placeholder="Digite seu usuário"
+                            label="Usuário"
+                            disabled={loading}
+                            required={true}
+                            icon={<Mail size={20} />}
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-md font-medium text-gray-700 mb-2">
-                            Senha
-                        </label>
-                        <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 transition-colors focus-within:border-black px-2.5">
-                            <Lock size={20} className=" text-gray-500" />
-                            <input
-                                onChange={(e) => setSenha(e.target.value)}
-                                type={showPassword ? "text" : "password"}
-                                className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
-                                placeholder="Digite sua senha"
-                                required
-                                value={senha}
-                                disabled={loading} // ✅ Desabilita durante loading
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="text-gray-500 hover:text-gray-700"
-                                disabled={loading} // ✅ Desabilita durante loading
-                            >
-                                {showPassword ? (
-                                    <EyeOff
-                                        size={20}
-                                        className="cursor-pointer"
-                                    />
-                                ) : (
-                                    <Eye size={20} className="cursor-pointer" />
-                                )}
-                            </button>
-                        </div>
-                        <div className="mt-1 flex items-center justify-between  ">
+                        <Input
+                            type="password"
+                            value={senha}
+                            onChange={setSenha}
+                            placeholder="Digite sua senha"
+                            label="Senha"
+                            disabled={loading}
+                            required={true}
+                            icon="lock"
+                        />
+                        <div className="mt-3 flex items-center justify-between mb-8">
                             <RadioButton
                                 selected={remember}
                                 onChange={setRemember}
                                 label={"Lembrar-me"}
                             />
-                        <button type="button" className="text-sm font-medium text-blue-500 hover:underline">Esqueci minha senha</button>
+                            <button
+                                type="button"
+                                className="text-sm font-medium text-blue-500 hover:underline"
+                            >
+                                Esqueci minha senha
+                            </button>
                         </div>
                     </div>
 
