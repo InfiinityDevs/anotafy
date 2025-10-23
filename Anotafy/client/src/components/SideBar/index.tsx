@@ -137,7 +137,7 @@ export default function SideBar({ items, active }: SideBarProps) {
                                 >
                                     <Icon
                                         size={20}
-                                        className="transition-all duration-300 ease-in-out flex-shrink-0"
+                                        className="transition-all duration-300 ease-in-out shrink-0"
                                     />
                                     <span
                                         aria-hidden={!openSideBar}
@@ -190,7 +190,7 @@ export default function SideBar({ items, active }: SideBarProps) {
                                     openSideBar ? "w-full" : "w-0"
                                 } overflow-hidden`}
                             >
-                                <span className="transition-all duration-300 ease-in-out font-bold">
+                                <span className="select-none transition-all duration-300 ease-in-out font-bold">
                                     Logout
                                 </span>
                             </div>

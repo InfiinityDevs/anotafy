@@ -14,8 +14,8 @@ export class Mesa {
 	@PrimaryGeneratedColumn()
 	Id!: number;
 
-	@Column({ type: 'int', nullable: false })
-	Numero!: number;
+	@Column({ type: 'varchar', nullable: false, length: 20 })
+	Identificacao!: String;
 
 	@Column({ type: 'int', nullable: false })
 	Capacidade!: number;

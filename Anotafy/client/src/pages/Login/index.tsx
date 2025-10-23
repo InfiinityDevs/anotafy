@@ -1,4 +1,4 @@
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail } from "lucide-react";
 import Logo from "../../components/Logo";
 import { useState } from "react";
 import { UsuarioService } from "../../service/usuarioService";
@@ -100,12 +100,13 @@ export default function Login() {
                             label="Usuário"
                             disabled={loading}
                             required={true}
-                            icon={<Mail size={20} />}
+                            iconLeft={<Mail size={20} />}
                         />
                     </div>
 
                     <div>
                         <Input
+                            onEnter={loginUser}
                             type="password"
                             value={senha}
                             onChange={setSenha}
@@ -113,7 +114,7 @@ export default function Login() {
                             label="Senha"
                             disabled={loading}
                             required={true}
-                            icon="lock"
+                            iconLeft="lock"
                         />
                         <div className="mt-3 flex items-center justify-between mb-8">
                             <RadioButton

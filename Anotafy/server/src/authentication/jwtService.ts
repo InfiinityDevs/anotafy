@@ -12,7 +12,7 @@ export class JwtService {
             throw new Error("JWT_SECRET não foi definida no .env");
         }
 
-        return jwt.sign(payload, secret, { expiresIn: "1h" });
+        return jwt.sign(payload, secret, { expiresIn: "8h" });
     }
 
     public static verifyToken(token: string): ITokenPayload {

@@ -5,41 +5,51 @@ interface InputProps {
     type?: "text" | "password" | "email";
     value: string;
     onChange: (value: string) => void;
+    onEnter?: () => void;
     placeholder: string;
     label?: string | undefined;
     disabled?: boolean;
     required?: boolean;
-    icon?: "lock" | React.ReactNode | LucideIcon | undefined;
+    iconLeft?: "lock" | React.ReactNode | LucideIcon | undefined;
+    iconRight?: "lock" | React.ReactNode | LucideIcon | undefined;
+    className?: string;
 }
 
 export default function Input({
     type = "text",
     value,
     onChange,
+    onEnter,
     placeholder,
     label,
     disabled = false,
     required = false,
-    icon
+    iconLeft,
+    iconRight,
+    className,
 }: InputProps) {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === "password";
     const currentType = isPassword && showPassword ? "text" : type;
 
-    const renderIcon = () => {
+    const renderIcon = (
+        icon: "lock" | React.ReactNode | LucideIcon | undefined
+    ) => {
+
         if (icon === "lock") {
             return <Lock size={20} />;
-        } else if (typeof icon === "function") {
-            const IconComponent = icon as LucideIcon;
-            return <IconComponent size={20} />;
         } else if (React.isValidElement(icon)) {
             return icon;
+        } else if (icon) {
+            const IconComponent = icon as LucideIcon;
+            return <IconComponent size={20} />;
+            
         }
         return null;
-    }
+    };
 
     return (
-        <div>
+        <div className={className ? className : "w-full"} >
             {label && (
                 <label className="block text-md font-medium text-gray-500 mb-2">
                     {label}
@@ -47,12 +57,23 @@ export default function Input({
             )}
             <div className="flex items-center w-full bg-gray-100 border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 px-2.5">
                 {/* Ícone esquerdo */}
-                {renderIcon() && (
-                    <div className="mr-2 text-gray-500">{renderIcon()}</div>
+                {renderIcon(iconLeft) && (
+                    <div className="mr-2 text-gray-500">
+                        {renderIcon(iconLeft)}
+                    </div>
                 )}
 
                 {/* Input */}
                 <input
+                    {...(onEnter && {
+                        onKeyDown: (
+                            e: React.KeyboardEvent<HTMLInputElement>
+                        ) => {
+                            if (e.key === "Enter" && onEnter) {
+                                onEnter();
+                            }
+                        },
+                    })}
                     onChange={(e) => onChange(e.target.value)}
                     type={currentType}
                     className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
@@ -61,6 +82,12 @@ export default function Input({
                     value={value}
                     disabled={disabled}
                 />
+                {/* Ícone direito */}
+                {renderIcon(iconRight) && (
+                    <div className="ml-2 text-gray-500">
+                        {renderIcon(iconRight)}
+                    </div>
+                )}
 
                 {/* Botão de mostrar/ocultar senha */}
                 {isPassword && (

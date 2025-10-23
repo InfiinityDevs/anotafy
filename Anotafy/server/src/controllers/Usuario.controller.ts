@@ -31,9 +31,9 @@ export default class UserController implements IController {
             // ✅ CONFIGURAÇÃO PARA DESENVOLVIMENTO
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: false, // false em desenvolvimento
+                secure: true, // false em desenvolvimento
                 sameSite: "lax", // ou "none" se precisar
-                maxAge: 3600000,
+                maxAge:2880000, 
                 path: "/",
             });
 
@@ -44,9 +44,9 @@ export default class UserController implements IController {
     private logout = async (req: Request, res: Response, next: NextFunction) => { 
         res.clearCookie("token", {
             httpOnly: true,
-            secure: false, // false em desenvolvimento
+            secure: true, // false em desenvolvimento
             sameSite: "lax", // ou "none" se precisar
-            maxAge: 3600000,
+            maxAge: 2880000,
             path: "/",
         });
 

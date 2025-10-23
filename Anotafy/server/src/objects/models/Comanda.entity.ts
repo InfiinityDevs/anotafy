@@ -11,21 +11,24 @@ import { Mesa } from './Mesa.entity';
 
 @Entity('comanda')
 export class Comanda {
-	@PrimaryGeneratedColumn()
-	Id!: number;
+    @PrimaryGeneratedColumn()
+    Id!: number;
 
-	@Column({ type: 'timestamp with time zone', nullable: false })
-	HoraAbertura!: Date;
+    @Column({ type: 'int', nullable: true })
+    Pessoas?: number;
+    
+    @Column({ type: 'timestamp with time zone', nullable: false })
+    HoraAbertura!: Date;
 
-	@Column({ type: 'timestamp with time zone', nullable: false })
-	HoraFechamento!: Date;
+    @Column({ type: 'timestamp with time zone', nullable: false })
+    HoraFechamento!: Date;
 
-	@Column({ type: 'enum', nullable: false, enum: StatusComanda })
-	Status!: StatusComanda;
+    @Column({ type: 'enum', nullable: false, enum: StatusComanda })
+    Status!: StatusComanda;
 
-	@ManyToOne(() => Mesa, (mesa) => mesa.Comandas)
-	Mesa!: Mesa;
+    @ManyToOne(() => Mesa, (mesa) => mesa.Comandas)
+    Mesa!: Mesa;
 
-	@OneToMany(() => ItemComanda, (itensComanda) => itensComanda.Comanda)
-	ItensComanda?: ItemComanda[];
+    @OneToMany(() => ItemComanda, (itensComanda) => itensComanda.Comanda)
+    ItensComanda?: ItemComanda[];
 }

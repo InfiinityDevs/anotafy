@@ -107,7 +107,7 @@ export default function Alert({
             aria-live="polite"
         >
             {/* Ícone */}
-            <div className="flex-shrink-0 mr-3">
+            <div className="shrink-0 mr-3">
                 <IconComponent size={24} className={config.iconClass} />
             </div>
 
@@ -118,7 +118,9 @@ export default function Alert({
                         {title}
                     </h3>
                 )}
-                <p className="text-sm leading-relaxed break-words">{message}</p>
+                <p className="text-sm leading-relaxed wrap-break-word">
+                    {message}
+                </p>
             </div>
 
             {/* Botão Fechar */}
