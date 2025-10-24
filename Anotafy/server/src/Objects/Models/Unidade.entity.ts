@@ -5,8 +5,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from "typeorm";
-import { TipoUnidade } from "../enums/TipoUnidade";
-import { StatusUnidade } from "../enums/StatusUnidade";
+import { TipoUnidade } from "../Enums/TipoUnidade";
+import { StatusUnidade } from "../Enums/StatusUnidade";
 import { Empresa } from "./Empresa.entity";
 import { Categoria } from "./Categoria.entity";
 import { Usuario } from "./Usuario.entity";

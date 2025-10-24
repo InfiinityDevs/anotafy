@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Usuario } from "../../objects/models/Usuario.entity";
-import ExceptionNotFound from "../../contracts/exceptions/ExpectionNotFound";
+import { Usuario } from "../../Objects/Models/Usuario.entity";
+import ExceptionNotFound from "../../Contracts/Exceptions/ExpectionNotFound";
 
 export class UsuarioRepository {
     private userRepository = AppDataSource.getRepository(Usuario);

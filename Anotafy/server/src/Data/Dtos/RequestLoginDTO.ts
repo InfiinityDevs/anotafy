@@ -1,5 +1,5 @@
-import { ValidateInput } from "../../contracts/classNotations/ValidateInput";
-import { required } from "../../contracts/notations/Required";
+import { ValidateInput } from "../../Contracts/ClassNotations/ValidateInput";
+import { required } from "../../Contracts/Notations/Required";
 
 export interface IRequestLoginDTO {
     login: string;

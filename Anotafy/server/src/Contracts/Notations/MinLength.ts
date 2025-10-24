@@ -1,5 +1,5 @@
 import { Notation } from "../BaseNotation";
-import ExceptionBadRequest from "../exceptions/ExceptionBadRequest";
+import ExceptionBadRequest from "../Exceptions/ExceptionBadRequest";
 
 class MinLength extends Notation {
     protected Action(value: any, propertyKey: string, length: number): void {

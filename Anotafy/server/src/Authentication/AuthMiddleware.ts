@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ITokenPayload, JwtService } from "./JwtService";
-import ExceptionUnauthorized from "../contracts/exceptions/ExceptionUnauthorized";
+import ExceptionUnauthorized from "../Contracts/Exceptions/ExceptionUnauthorized";
 
 export interface AuthenticatedRequest extends Request {
     user?: ITokenPayload;

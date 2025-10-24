@@ -1,4 +1,4 @@
-import ExceptionBadRequest from "./exceptions/ExceptionBadRequest";
+import ExceptionBadRequest from "./Exceptions/ExceptionBadRequest";
 
 export abstract class Notation {
     private ErrorMessage: string = "";

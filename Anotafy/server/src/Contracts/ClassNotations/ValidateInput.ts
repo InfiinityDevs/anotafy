@@ -1,4 +1,4 @@
-import ExceptionBadRequest from "../exceptions/ExceptionBadRequest";
+import ExceptionBadRequest from "../Exceptions/ExceptionBadRequest";
 import FieldError from "../FieldError";
 
 export function ValidateInput<T extends new (...args: any[]) => any>(

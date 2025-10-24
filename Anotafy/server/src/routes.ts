@@ -1,7 +1,7 @@
 import { Router } from "express";
 import fs from "fs";
 import path from "path";
-import { IController } from "./contracts/IController";
+import { IController } from "./Contracts/IController";
 
 const cRouter = Router();
 

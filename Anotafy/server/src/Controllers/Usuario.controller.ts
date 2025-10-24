@@ -1,11 +1,11 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { IController } from "../contracts/IController";
-import ResponseApi from "../contracts/response/ResponseApi";
-import { RequestLoginDTO } from "../data/dtos/RequestLoginDTO";
-import { JwtService } from "../authentication/JwtService";
-import { Protect } from "../authentication/AuthMiddleware";
-import { UsuarioService } from "../services/Usuario.service";
-import { Usuario } from "../objects/models/Usuario.entity";
+import { IController } from "../Contracts/IController";
+import ResponseApi from "../Contracts/Response/ResponseApi";
+import { RequestLoginDTO } from "../Data/Dtos/RequestLoginDTO";
+import { JwtService } from "../Authentication/JwtService";
+import { Protect } from "../Authentication/AuthMiddleware";
+import { UsuarioService } from "../Services/Usuario.service";
+import { Usuario } from "../Objects/Models/Usuario.entity";
 export default class UserController implements IController {
     public path = "/user";
     public router = Router();

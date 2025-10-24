@@ -5,7 +5,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from "typeorm";
-import { YesNo } from "../enums/YesNo";
+import { YesNo } from "../Enums/YesNo";
 import { Unidade } from "./Unidade.entity";
 import { ItemComanda } from "./ItemComanda.entity";
 

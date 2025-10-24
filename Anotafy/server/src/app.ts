@@ -2,7 +2,7 @@
 import "dotenv/config";
 import express from "express";
 import routes from "./routes";
-import ErrorMiddleware from "./contracts/ErrorMiddleware";
+import ErrorMiddleware from "./Contracts/ErrorMiddleware";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 

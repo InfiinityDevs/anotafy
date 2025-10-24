@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import ExceptionUnauthorized from "../contracts/exceptions/ExceptionUnauthorized";
+import ExceptionUnauthorized from "../Contracts/Exceptions/ExceptionUnauthorized";
 
 export interface ITokenPayload {
     id: number | string;
