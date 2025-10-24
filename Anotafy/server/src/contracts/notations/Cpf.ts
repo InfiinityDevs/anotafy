@@ -1,18 +1,16 @@
-import { Notation } from "../baseNotation";
-import ExceptionBadRequest from "../exceptions/exceptionBadRequest";
+import { Notation } from "../BaseNotation";
+import ExceptionBadRequest from "../exceptions/ExceptionBadRequest";
 
 class Cpf extends Notation {
-    protected action(value: any, propertyKey: string): void {
+    protected Action(value: any, propertyKey: string): void {
         if (typeof value !== "string") {
-            this.returnError(
-                `O campo ${propertyKey} deve ser uma string.`
-            );
+            this.ReturnError(`O campo ${propertyKey} deve ser uma string.`);
         }
 
         const cpfLimpo = value.replace(/[^\d]+/g, "");
 
         if (cpfLimpo.length !== 11 || /^(\d)\1+$/.test(cpfLimpo)) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CPF válido.`
             );
         }
@@ -27,7 +25,7 @@ class Cpf extends Notation {
         resto = (soma * 10) % 11;
         if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(cpfLimpo.substring(9, 10))) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CPF válido.`
             );
         }
@@ -40,7 +38,7 @@ class Cpf extends Notation {
         resto = (soma * 10) % 11;
         if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(cpfLimpo.substring(10, 11))) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CPF válido.`
             );
         }
@@ -48,5 +46,5 @@ class Cpf extends Notation {
 }
 
 export function cpf(target: any, propertyKey: string) {
-    new Cpf().apply(target, propertyKey);
+    new Cpf().Apply(target, propertyKey);
 }

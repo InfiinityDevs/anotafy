@@ -1,4 +1,4 @@
-import ApiException from "../apiException";
+import ApiException from "../ApiException";
 
 export default class ExceptionForbidden extends ApiException {
     constructor(message: string) {

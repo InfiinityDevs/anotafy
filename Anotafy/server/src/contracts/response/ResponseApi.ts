@@ -1,5 +1,5 @@
 import { Response } from "express";
-import FieldError from "../fieldError";
+import FieldError from "../FieldError";
 
 interface IRes {
     res: Response;

@@ -1,7 +1,7 @@
-import ExceptionBadRequest from "../exceptions/exceptionBadRequest";
-import FieldError from "../fieldError";
+import ExceptionBadRequest from "../exceptions/ExceptionBadRequest";
+import FieldError from "../FieldError";
 
-export function validateInput<T extends new (...args: any[]) => any>(
+export function ValidateInput<T extends new (...args: any[]) => any>(
     constructor: T
 ) {
     return class extends constructor {
@@ -15,23 +15,33 @@ export function validateInput<T extends new (...args: any[]) => any>(
                 const data = Object.keys(dataInput);
 
                 const listErrors: FieldError[] = [];
-                
+
                 for (const prop of expectedProperties) {
-                    if (!data.includes(prop.charAt(0).toLowerCase() + prop.slice(1))) {
+                    if (
+                        !data.includes(
+                            prop.charAt(0).toLowerCase() + prop.slice(1)
+                        )
+                    ) {
                         listErrors.push(
                             new FieldError(
                                 prop.toString().toLowerCase(),
-                                `Propriedade ausente no objeto de entrada: ${prop.toString().toLowerCase()}`
+                                `Propriedade ausente no objeto de entrada: ${prop
+                                    .toString()
+                                    .toLowerCase()}`
                             )
                         );
                     }
                 }
 
                 for (const prop of data) {
-                    if (!expectedProperties.includes(prop.charAt(0).toUpperCase() + prop.slice(1))) {
+                    if (
+                        !expectedProperties.includes(
+                            prop.charAt(0).toUpperCase() + prop.slice(1)
+                        )
+                    ) {
                         listErrors.push(
                             new FieldError(
-                                prop, 
+                                prop,
                                 `Propriedade desconhecida no objeto de entrada: ${prop}`
                             )
                         );
@@ -39,7 +49,10 @@ export function validateInput<T extends new (...args: any[]) => any>(
                 }
 
                 if (listErrors.length > 0) {
-                    throw new ExceptionBadRequest("Erros de validação", listErrors);
+                    throw new ExceptionBadRequest(
+                        "Erros de validação",
+                        listErrors
+                    );
                 }
             }
 

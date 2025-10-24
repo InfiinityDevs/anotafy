@@ -1,12 +1,12 @@
 import * as jwt from "jsonwebtoken";
-import ExceptionUnauthorized from "../contracts/exceptions/exceptionUnauthorized";
+import ExceptionUnauthorized from "../contracts/exceptions/ExceptionUnauthorized";
 
 export interface ITokenPayload {
     id: number | string;
 }
 
 export class JwtService {
-    public static generateToken(payload: ITokenPayload): string {
+    public static GenerateToken(payload: ITokenPayload): string {
         const secret = process.env.JWT_SECRET;
         if (!secret) {
             throw new Error("JWT_SECRET não foi definida no .env");
@@ -15,7 +15,7 @@ export class JwtService {
         return jwt.sign(payload, secret, { expiresIn: "8h" });
     }
 
-    public static verifyToken(token: string): ITokenPayload {
+    public static VerifyToken(token: string): ITokenPayload {
         const secret = process.env.JWT_SECRET;
         if (!secret) {
             throw new Error("JWT_SECRET não foi definida no .env");

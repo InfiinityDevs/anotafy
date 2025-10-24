@@ -1,18 +1,16 @@
-import { Notation } from "../baseNotation";
-import ExceptionBadRequest from "../exceptions/exceptionBadRequest";
+import { Notation } from "../BaseNotation";
+import ExceptionBadRequest from "../exceptions/ExceptionBadRequest";
 
 class Cnpj extends Notation {
-    protected action(value: any, propertyKey: string): void {
+    protected Action(value: any, propertyKey: string): void {
         if (typeof value !== "string") {
-            this.returnError(
-                `O campo ${propertyKey} deve ser uma string.`
-            );
+            this.ReturnError(`O campo ${propertyKey} deve ser uma string.`);
         }
 
         const cnpjLimpo = value.replace(/[^\d]+/g, "");
 
         if (cnpjLimpo.length !== 14 || /^(\d)\1+$/.test(cnpjLimpo)) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CNPJ válido.`
             );
         }
@@ -30,7 +28,7 @@ class Cnpj extends Notation {
 
         let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
         if (resultado !== parseInt(digitos.charAt(0))) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CNPJ válido.`
             );
         }
@@ -47,7 +45,7 @@ class Cnpj extends Notation {
 
         resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
         if (resultado !== parseInt(digitos.charAt(1))) {
-            this.returnError(
+            this.ReturnError(
                 `O campo ${propertyKey} não contém um CNPJ válido.`
             );
         }
@@ -55,5 +53,5 @@ class Cnpj extends Notation {
 }
 
 export function cnpj(target: any, propertyKey: string) {
-    new Cnpj().apply(target, propertyKey);
+    new Cnpj().Apply(target, propertyKey);
 }

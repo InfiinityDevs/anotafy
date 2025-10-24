@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { ITokenPayload, JwtService } from "./jwtService";
-import ExceptionUnauthorized from "../contracts/exceptions/exceptionUnauthorized";
+import { ITokenPayload, JwtService } from "./JwtService";
+import ExceptionUnauthorized from "../contracts/exceptions/ExceptionUnauthorized";
 
 export interface AuthenticatedRequest extends Request {
     user?: ITokenPayload;
 }
 
-export function protect(
+export function Protect(
     req: AuthenticatedRequest,
     res: Response,
     next: NextFunction
@@ -18,7 +18,7 @@ export function protect(
     }
 
     try {
-        const decodedPayload = JwtService.verifyToken(token) as ITokenPayload;
+        const decodedPayload = JwtService.VerifyToken(token) as ITokenPayload;
         req.user = decodedPayload;
         next();
     } catch (error) {

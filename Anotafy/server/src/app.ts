@@ -2,7 +2,7 @@
 import "dotenv/config";
 import express from "express";
 import routes from "./routes";
-import errorMiddleware from "./contracts/errorMiddleware";
+import ErrorMiddleware from "./contracts/ErrorMiddleware";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -30,6 +30,6 @@ app.use(
 app.use("/api/v1", routes);
 
 // 5. Error middleware (sempre por último)
-app.use(errorMiddleware);
+app.use(ErrorMiddleware);
 
 export default app;

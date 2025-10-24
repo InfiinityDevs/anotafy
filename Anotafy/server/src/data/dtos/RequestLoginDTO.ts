@@ -1,12 +1,12 @@
-import { validateInput } from "../../contracts/classNotations/validateInput";
-import { required } from "../../contracts/notations/required";
+import { ValidateInput } from "../../contracts/classNotations/ValidateInput";
+import { required } from "../../contracts/notations/Required";
 
 export interface IRequestLoginDTO {
     login: string;
     senha: string;
 }
 
-@validateInput
+@ValidateInput
 export class RequestLoginDTO {
     @required
     public Login: string;

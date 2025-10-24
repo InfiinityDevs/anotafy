@@ -1,4 +1,4 @@
-import FieldError from "./fieldError";
+import FieldError from "./FieldError";
 
 export default class ExceptionError extends Error {
     public readonly Status: number;
@@ -9,7 +9,7 @@ export default class ExceptionError extends Error {
 
         this.Status = status;
         this.Errors = erros;
-        
+
         Error.captureStackTrace(this, this.constructor);
     }
 }

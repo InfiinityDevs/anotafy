@@ -1,14 +1,19 @@
-import ExceptionBadRequest from "./exceptions/exceptionBadRequest";
+import ExceptionBadRequest from "./exceptions/ExceptionBadRequest";
 
 export abstract class Notation {
-    private ErrorMessage: string = ""; 
+    private ErrorMessage: string = "";
 
-    apply(target: any, propertyKey: string, errorMessage?: string, ...extras: any[]) {
+    Apply(
+        target: any,
+        propertyKey: string,
+        errorMessage?: string,
+        ...extras: any[]
+    ) {
         let valor: any;
 
         const getter = () => valor;
         const setter = (novoValor: any) => {
-            this.action(novoValor, propertyKey, ...extras);
+            this.Action(novoValor, propertyKey, ...extras);
             valor = novoValor;
         };
 
@@ -20,18 +25,16 @@ export abstract class Notation {
         });
     }
 
-    returnError(message: string = "") {
-        if (message !== "")
-            throw new ExceptionBadRequest(message);
+    ReturnError(message: string = "") {
+        if (message !== "") throw new ExceptionBadRequest(message);
 
         if (this.ErrorMessage !== "")
             throw new ExceptionBadRequest(this.ErrorMessage);
-        
+
         throw new ExceptionBadRequest("Erro padrão de notação.");
-        
     }
 
-    protected abstract action(
+    protected abstract Action(
         value: any,
         propertyKey: string,
         ...extras: any[]

@@ -1,4 +1,4 @@
-import ApiException from "../apiException";
+import ApiException from "../ApiException";
 
 export default class ExceptionNotFound extends ApiException {
     constructor(message: string) {
