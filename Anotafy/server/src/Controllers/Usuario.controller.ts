@@ -34,8 +34,7 @@ export default class UserController implements IController {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production", // false em desenvolvimento
                 sameSite: "lax", // ou "none" se precisar
-                maxAge: 1000 * 60 * 60 * 8, // 8h
-                expires: new Date(Date.now() + 8 * 60 * 60 * 1000),
+                maxAge: 8 * 60 * 60 * 1000,
                 path: "/",
             });
 
@@ -50,9 +49,9 @@ export default class UserController implements IController {
     ) => {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: true, // false em desenvolvimento
+            secure: process.env.NODE_ENV === "production", // false em desenvolvimento
             sameSite: "lax", // ou "none" se precisar
-            maxAge: 2880000,
+            maxAge: 8 * 60 * 60 * 1000,
             path: "/",
         });
 

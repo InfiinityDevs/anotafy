@@ -5,7 +5,7 @@ import { IController } from "./Contracts/IController";
 
 const cRouter = Router();
 
-const controllersPath = path.join(__dirname, "controllers");
+const controllersPath = path.join(__dirname, "Controllers");
 
 fs.readdirSync(controllersPath).forEach((fileOrDir) => {
     const fullPath = path.join(controllersPath, fileOrDir);

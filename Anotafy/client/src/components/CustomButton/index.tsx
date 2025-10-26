@@ -35,7 +35,7 @@ export default function CustomButton({label, sizeLabel, iconLeft, iconRight, pos
 
     return (
         <button
-            className={`flex flex-row gap-2 justify-${position} items-center ${bgColor} p-3 rounded-lg ${textColor} font-medium hover:bg-primary/80 cursor-pointer ${sizeLabel && `text-${sizeLabel}`} ` + className} onClick={onClick}
+            className={`flex flex-row gap-2 justify-${position} items-center ${bgColor} p-3 rounded-lg ${textColor} cursor-pointer ${sizeLabel && `text-${sizeLabel}`} ` + className} onClick={onClick}
         >
             {renderIcon(iconLeft) && renderIcon(iconLeft)}
             <span>{label}</span>

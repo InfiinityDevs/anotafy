@@ -133,18 +133,18 @@ html {
 }
 
 *, *::before, *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 @theme {
     --color-primary: #3b82f6;
-    --color-backgound: #EBEBEB;
+    --color-backgound: #F2F3F6;
     --color-backgound-gray: #1f2937;
-    --color-foreground: #fff;
-    --color-shadow: #0000004d;
+    --color-foreground: #FFFFFF;
+    --color-border: #D8DAE0;
     
     --color-text-gray-light: #ececec;
-    --color-text: #4a5565;
+    --color-text: #737686;
 
     --font-poppins: Poppins, "sans-serif";
 }
@@ -158,5 +158,5 @@ html {
 }
 
 .teste {
-    background-color: color(#ececec);
+    background-color: color(#2e63b8);
 }

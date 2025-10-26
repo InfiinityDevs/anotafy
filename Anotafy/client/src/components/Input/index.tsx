@@ -13,6 +13,7 @@ interface InputProps {
     iconLeft?: "lock" | React.ReactNode | LucideIcon | undefined;
     iconRight?: "lock" | React.ReactNode | LucideIcon | undefined;
     className?: string;
+    bgInput?: string;
 }
 
 export default function Input({
@@ -27,6 +28,7 @@ export default function Input({
     iconLeft,
     iconRight,
     className,
+    bgInput = "bg-gray-100",
 }: InputProps) {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === "password";
@@ -35,7 +37,6 @@ export default function Input({
     const renderIcon = (
         icon: "lock" | React.ReactNode | LucideIcon | undefined
     ) => {
-
         if (icon === "lock") {
             return <Lock size={20} />;
         } else if (React.isValidElement(icon)) {
@@ -43,19 +44,18 @@ export default function Input({
         } else if (icon) {
             const IconComponent = icon as LucideIcon;
             return <IconComponent size={20} />;
-            
         }
         return null;
     };
 
     return (
-        <div className={className ? className : "w-full"} >
+        <div className={className ? className : "w-full"}>
             {label && (
                 <label className="block text-md font-medium text-gray-500 mb-2">
                     {label}
                 </label>
             )}
-            <div className="flex items-center w-full bg-gray-100 border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 px-2.5">
+            <div className={ `flex items-center w-full ${bgInput} border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 px-2.5` }>
                 {/* Ícone esquerdo */}
                 {renderIcon(iconLeft) && (
                     <div className="mr-2 text-gray-500">

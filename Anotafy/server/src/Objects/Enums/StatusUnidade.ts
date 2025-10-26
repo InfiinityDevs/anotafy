@@ -1,5 +1,5 @@
 export enum StatusUnidade {
-	ATIVA,
-	INATIVA,
-	EM_REFORMA,
+    ATIVA = "ATIVA",
+    INATIVA = "INATIVA",
+    EM_REFORMA = "EM_REFORMA",
 }

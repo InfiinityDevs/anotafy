@@ -1,5 +1,5 @@
 export enum StatusComanda {
-    OCUPADA,
-    EM_FECHAMENTO,
-    FINALIZADA
+    OCUPADA = "OCUPADA",
+    EM_FECHAMENTO = "EM_FECHAMENTO",
+    FINALIZADA = "FINALIZADA"
 }

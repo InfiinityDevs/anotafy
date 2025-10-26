@@ -14,7 +14,7 @@
             y2="100%"
         >
             <stop offset="0%" stop-color="#3b82f6" />
-            <stop offset="100%" stop-color="#1f2937" />
+            <stop offset="100%" stop-color="#fff" />
         </linearGradient>
     </defs>
 
@@ -30,7 +30,7 @@
     <!-- Ícone ChefHat ajustado -->
     <g
         transform="translate(128,128) scale(7) translate(-12,-12)"
-        stroke="white"
+        stroke="black"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"

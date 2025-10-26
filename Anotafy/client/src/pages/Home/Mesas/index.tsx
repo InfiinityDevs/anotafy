@@ -5,6 +5,14 @@ import { Filter, Search } from "lucide-react";
 import CustomButton from "../../../components/CustomButton";
 import Card from "../../../components/Card";
 import { formatDate } from "../../../utils/formatDate";
+import {
+    RockingChair,
+    Users,
+    Receipt,
+    Sparkles,
+    Clock,
+    Lock,
+} from "lucide-react";
 
 interface IMesa {
     id: number;
@@ -16,10 +24,10 @@ interface IMesa {
     totalMesa?: number;
 }
 
-export const mockMesas: IMesa[] = [
+const mockMesas: IMesa[] = [
     {
         id: 1,
-        identificacao: "Mesa 01 - Janela",
+        identificacao: "Mesa 01",
         status: statusMesa.LIVRE,
         capacidade: 4,
         pessoas: undefined,
@@ -28,7 +36,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 2,
-        identificacao: "Mesa 02 - Centro",
+        identificacao: "Mesa 02",
         status: statusMesa.OCUPADA,
         capacidade: 6,
         pessoas: 4,
@@ -37,7 +45,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 3,
-        identificacao: "Mesa 03 - Varanda",
+        identificacao: "Mesa 03",
         status: statusMesa.OCUPADA,
         capacidade: 4,
         pessoas: 2,
@@ -46,7 +54,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 4,
-        identificacao: "Mesa 04 - Jardim",
+        identificacao: "Mesa 04",
         status: statusMesa.EM_FECHAMENTO,
         capacidade: 8,
         pessoas: 3,
@@ -55,7 +63,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 5,
-        identificacao: "Mesa 05 - Canto",
+        identificacao: "Mesa 05",
         status: statusMesa.AGUARDANDO_LIMPEZA,
         capacidade: 4,
         pessoas: undefined,
@@ -64,7 +72,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 6,
-        identificacao: "Mesa 06 - Privativa",
+        identificacao: "Mesa 06",
         status: statusMesa.RESERVADA,
         capacidade: 10,
         pessoas: undefined,
@@ -73,7 +81,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 7,
-        identificacao: "Mesa 07 - Manutenção",
+        identificacao: "Mesa 07",
         status: statusMesa.BLOQUEADA,
         capacidade: 4,
         pessoas: undefined,
@@ -82,7 +90,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 8,
-        identificacao: "Mesa 08 - Central",
+        identificacao: "Mesa 08",
         status: statusMesa.LIVRE,
         capacidade: 6,
         pessoas: undefined,
@@ -91,7 +99,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 9,
-        identificacao: "Mesa VIP 01 - Área Nobre",
+        identificacao: "Mesa VI",
         status: statusMesa.OCUPADA,
         capacidade: 12,
         pessoas: 6,
@@ -100,7 +108,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 10,
-        identificacao: "Mesa VIP 02 - Vista Mar",
+        identificacao: "Mesa VI",
         status: statusMesa.LIVRE,
         capacidade: 8,
         pessoas: undefined,
@@ -109,7 +117,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 11,
-        identificacao: "Mesa 09 - Balcão",
+        identificacao: "Mesa 09",
         status: statusMesa.OCUPADA,
         capacidade: 2,
         pessoas: 1,
@@ -118,7 +126,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 12,
-        identificacao: "Mesa 10 - Entrada",
+        identificacao: "Mesa 10",
         status: statusMesa.LIVRE,
         capacidade: 4,
         pessoas: undefined,
@@ -127,7 +135,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 13,
-        identificacao: "Mesa 11 - Fundos",
+        identificacao: "Mesa 11",
         status: statusMesa.OCUPADA,
         capacidade: 6,
         pessoas: 5,
@@ -136,7 +144,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 14,
-        identificacao: "Mesa 12 - Pérgola",
+        identificacao: "Mesa 12",
         status: statusMesa.LIVRE,
         capacidade: 4,
         pessoas: undefined,
@@ -145,7 +153,7 @@ export const mockMesas: IMesa[] = [
     },
     {
         id: 15,
-        identificacao: "Mesa 13 - Solário",
+        identificacao: "Mesa 13",
         status: statusMesa.RESERVADA,
         capacidade: 8,
         pessoas: undefined,
@@ -156,142 +164,88 @@ export const mockMesas: IMesa[] = [
 
 export const statusMesaCores = {
     [statusMesa.LIVRE]: {
-        bg: "bg-green-500",
-        text: "text-green-800",
-        border: "border-green-300",
+        bg: "bg-green-200",
+        text: "text-green-900",
+        border: "border-green-400",
         light: "bg-green-100",
         dark: "bg-green-600",
         hex: "#10B981",
     },
     [statusMesa.OCUPADA]: {
-        bg: "bg-red-500",
-        text: "text-red-800",
-        border: "border-red-300",
+        bg: "bg-red-200",
+        text: "text-red-900",
+        border: "border-red-400",
         light: "bg-red-100",
         dark: "bg-red-600",
         hex: "#EF4444",
     },
     [statusMesa.EM_FECHAMENTO]: {
-        bg: "bg-yellow-500",
-        text: "text-yellow-800",
-        border: "border-yellow-300",
+        bg: "bg-yellow-200",
+        text: "text-yellow-900",
+        border: "border-yellow-400",
         light: "bg-yellow-100",
         dark: "bg-yellow-600",
         hex: "#F59E0B",
     },
     [statusMesa.AGUARDANDO_LIMPEZA]: {
-        bg: "bg-blue-500",
-        text: "text-blue-800",
-        border: "border-blue-300",
+        bg: "bg-blue-200",
+        text: "text-blue-900",
+        border: "border-blue-400",
         light: "bg-blue-100",
         dark: "bg-blue-600",
         hex: "#3B82F6",
     },
     [statusMesa.RESERVADA]: {
-        bg: "bg-purple-500",
-        text: "text-purple-800",
-        border: "border-purple-300",
+        bg: "bg-purple-200",
+        text: "text-purple-900",
+        border: "border-purple-400",
         light: "bg-purple-100",
         dark: "bg-purple-600",
         hex: "#8B5CF6",
     },
     [statusMesa.BLOQUEADA]: {
-        bg: "bg-gray-500",
-        text: "text-gray-800",
-        border: "border-gray-300",
+        bg: "bg-gray-200",
+        text: "text-gray-900",
+        border: "border-gray-400",
         light: "bg-gray-100",
         dark: "bg-gray-600",
         hex: "#6B7280",
     },
 } as const;
 
+const iconesStatusMesa = {
+    [statusMesa.LIVRE]: RockingChair,
+    [statusMesa.OCUPADA]: Users,
+    [statusMesa.EM_FECHAMENTO]: Receipt,
+    [statusMesa.AGUARDANDO_LIMPEZA]: Sparkles,
+    [statusMesa.RESERVADA]: Clock,
+    [statusMesa.BLOQUEADA]: Lock,
+} as const;
 
-// Labels para cada status
 export const statusMesaLabels = {
     [statusMesa.LIVRE]: "Livre",
-    [statusMesa.OCUPADA]: "Ocupada", 
+    [statusMesa.OCUPADA]: "Ocupada",
     [statusMesa.EM_FECHAMENTO]: "Em Fechamento",
     [statusMesa.AGUARDANDO_LIMPEZA]: "Aguardando Limpeza",
     [statusMesa.RESERVADA]: "Reservada",
-    [statusMesa.BLOQUEADA]: "Bloqueada"
+    [statusMesa.BLOQUEADA]: "Bloqueada",
 } as const;
 
 function getCorStatusMesa(status: StatusMesa) {
     return statusMesaCores[status];
 }
 
-
 function getLabelStatusMesa(status: StatusMesa) {
     return statusMesaLabels[status];
 }
 
-export default function Garcom() {
+export default function Mesa() {
     const [mesa, setMesa] = useState<IMesa[]>(mockMesas);
     const [searchMesa, setSearchMesa] = useState<string>("");
 
     return (
-        <div>
-            {/* Header do Garcom */}
-            <div className="flex flex-row space-x-2">
-                {/* Barra de pesquia */}
-                <Input
-                    onChange={setSearchMesa}
-                    iconLeft={Search}
-                    placeholder="Pesquisar..."
-                    value={searchMesa}
-                    className=""
-                />
-                <CustomButton
-                    label="Filtro"
-                    onClick={() => console.log("buttão")}
-                    iconLeft={
-                        <Filter
-                            strokeWidth={2}
-                            size={20}
-                            className="shrink-0"
-                        />
-                    }
-                    className="hover:scale-105 transition-all duration-75 w-1/10"
-                />
-            </div>
-            {/* Body do Garcom */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
-                {mesa
-                    .filter((mesa) =>
-                        mesa.identificacao
-                            .toLowerCase()
-                            .includes(searchMesa.toLowerCase())
-                    )
-                    .map((mesa) => (
-                        <Card
-                            bgColor={getCorStatusMesa(mesa.status).bg}
-                            className={`hover:scale-105 transition-all duration-75 w-full hover:opacity-80`}
-                        >
-                            <div className="flex flex-col">
-                                <span className="truncate">
-                                    {mesa.identificacao}
-                                </span>
-                                <span>{getLabelStatusMesa(mesa.status)}</span>
-                                {mesa.status === statusMesa.OCUPADA ||
-                                mesa.status === statusMesa.EM_FECHAMENTO ? (
-                                    <>
-                                        <span>{mesa.pessoas}</span>
-                                        <span>
-                                            {mesa.totalMesa?.toFixed(2)}
-                                        </span>
-                                        <span>
-                                            {mesa.horaAbertura &&
-                                                formatDate({
-                                                    date: mesa.horaAbertura,
-                                                    format: "relative"
-                                                })}
-                                        </span>
-                                    </>
-                                ) : null}
-                            </div>
-                        </Card>
-                    ))}
-            </div>
+        <div className="h-full">
+            
         </div>
     );
 }

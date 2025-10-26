@@ -1,5 +1,5 @@
 export enum StatusEmpresa {
-	ATIVA,
-	INATIVA,
-	SUSPENSA,
+    ATIVA = "ATIVA",
+    INATIVA = "INATIVA",
+    SUSPENSA = "SUSPENSA",
 }

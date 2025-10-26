@@ -1,6 +1,6 @@
 export enum TipoUnidade {
-	MATRIZ,
-	FILIAL,
-	ESCRITORIO,
-	DEPOSITO,
+    MATRIZ = "MATRIZ",
+    FILIAL = "FILIAL",
+    ESCRITORIO = "ESCRITORIO",
+    DEPOSITO = "DEPOSITO",
 }

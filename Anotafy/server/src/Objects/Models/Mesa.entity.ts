@@ -1,9 +1,10 @@
 import {
     Column,
     Entity,
-    ManyToMany,
+    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    JoinColumn,
 } from "typeorm";
 import { StatusMesa } from "../Enums/StatusMesa";
 import { Unidade } from "./Unidade.entity";
@@ -11,19 +12,25 @@ import { Comanda } from "./Comanda.entity";
 
 @Entity("mesa")
 export class Mesa {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "id_mesa" })
     Id!: number;
 
-    @Column({ type: "varchar", nullable: false, length: 20 })
-    Identificacao!: String;
+    @Column({
+        name: "identificacao",
+        type: "varchar",
+        nullable: false,
+        length: 20,
+    })
+    Identificacao!: string;
 
-    @Column({ type: "int", nullable: false })
+    @Column({ name: "capacidade", type: "int", nullable: false })
     Capacidade!: number;
 
-    @Column({ type: "enum", nullable: false, enum: StatusMesa })
+    @Column({ name: "status", type: "enum", nullable: false, enum: StatusMesa })
     Status!: StatusMesa;
 
-    @ManyToMany(() => Unidade, (unidade) => unidade.Mesas)
+    @ManyToOne(() => Unidade, (unidade) => unidade.Mesas, { nullable: false })
+    @JoinColumn({ name: "id_unidade" })
     Unidade?: Unidade;
 
     @OneToMany(() => Comanda, (comanda) => comanda.Mesa)

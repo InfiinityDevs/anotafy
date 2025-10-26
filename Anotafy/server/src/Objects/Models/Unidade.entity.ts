@@ -4,6 +4,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    JoinColumn,
 } from "typeorm";
 import { TipoUnidade } from "../Enums/TipoUnidade";
 import { StatusUnidade } from "../Enums/StatusUnidade";
@@ -14,69 +15,104 @@ import { Mesa } from "./Mesa.entity";
 
 @Entity("unidade")
 export class Unidade {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "id_unidade" })
     Id!: number;
 
     @ManyToOne(() => Unidade, (unidade) => unidade.UnidadesFiliais, {
         nullable: true,
     })
+    @JoinColumn({ name: "id_matriz" })
     Matriz?: Unidade;
 
     @OneToMany(() => Unidade, (unidade) => unidade.Matriz, { nullable: true })
     UnidadesFiliais?: Unidade[];
 
-    @Column({ type: "varchar", length: 150, nullable: false })
+    @Column({ name: "nome", type: "varchar", length: 150, nullable: false })
     Nome!: string;
 
-    @Column({ type: "enum", enum: TipoUnidade, nullable: false })
+    @Column({
+        name: "tipo_unidade",
+        type: "enum",
+        enum: TipoUnidade,
+        nullable: false,
+    })
     TipoUnidade!: TipoUnidade;
 
-    @Column({ type: "varchar", length: 14, nullable: false })
+    @Column({ name: "cnpj", type: "varchar", length: 14, nullable: false })
     Cnpj!: string;
 
-    @Column({ type: "varchar", length: 8, nullable: false })
+    @Column({ name: "cep", type: "varchar", length: 8, nullable: false })
     Cep!: string;
 
-    @Column({ type: "varchar", length: 150, nullable: false })
+    @Column({
+        name: "logradouro",
+        type: "varchar",
+        length: 150,
+        nullable: false,
+    })
     Logradouro!: string;
 
-    @Column({ type: "varchar", length: 10, nullable: false })
+    @Column({ name: "numero", type: "varchar", length: 10, nullable: false })
     Numero!: string;
 
-    @Column({ type: "varchar", length: 300, nullable: true })
+    @Column({
+        name: "complemento",
+        type: "varchar",
+        length: 300,
+        nullable: true,
+    })
     Complemento?: string;
 
-    @Column({ type: "varchar", length: 150, nullable: false })
+    @Column({ name: "bairro", type: "varchar", length: 150, nullable: false })
     Bairro!: string;
 
-    @Column({ type: "varchar", length: 150, nullable: false })
+    @Column({ name: "cidade", type: "varchar", length: 150, nullable: false })
     Cidade!: string;
 
-    @Column({ type: "varchar", length: 2, nullable: false })
+    @Column({ name: "estado", type: "varchar", length: 2, nullable: false })
     Estado!: string;
 
-    @Column({ type: "varchar", length: 7, nullable: false })
+    @Column({
+        name: "codigo_municipio_ibge",
+        type: "varchar",
+        length: 7,
+        nullable: false,
+    })
     CodigoMunicipioIbge!: string;
 
-    @Column({ type: "varchar", length: 11, nullable: false })
+    @Column({ name: "telefone", type: "varchar", length: 11, nullable: false })
     Telefone!: string;
 
-    @Column({ type: "varchar", length: 150, nullable: false })
+    @Column({ name: "email", type: "varchar", length: 150, nullable: false })
     Email!: string;
 
-    @Column({ type: "enum", enum: StatusUnidade, nullable: false })
+    @Column({
+        name: "status",
+        type: "enum",
+        enum: StatusUnidade,
+        nullable: false,
+    })
     Status!: StatusUnidade;
 
-    @Column({ type: "date", nullable: false })
+    @Column({ name: "data_abertura", type: "date", nullable: false })
     DataAbertura!: Date;
 
-    @Column({ type: "timestamp with time zone", nullable: false })
+    @Column({
+        name: "data_cadastro",
+        type: "timestamp with time zone",
+        nullable: false,
+    })
     DataCadastro!: Date;
 
-    @Column({ type: "timestamp with time zone", nullable: false })
+    @Column({
+        name: "data_atualizacao",
+        type: "timestamp with time zone",
+        nullable: false,
+    })
     DataAtulizacao!: Date;
 
-    @ManyToOne(() => Empresa, (empresa) => empresa.Unidades)
+    @ManyToOne(() => Empresa, (empresa) => empresa.Unidades, { nullable: false })
+    @JoinColumn({ name: "id_empresa" })
     Empresa!: Empresa;
 
     @OneToMany(() => Categoria, (categoria) => categoria.Unidade)

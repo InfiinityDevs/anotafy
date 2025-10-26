@@ -1,14 +1,9 @@
-import { useState } from "react";
-import Logo from "../Logo";
-import { ChevronLeft, LogOut } from "lucide-react";
-import Space from "../Space";
-import { UsuarioService } from "../../service/usuarioService";
-import type { IAlert } from "../Alert";
-import Alert from "../Alert";
+import { LogOut } from "lucide-react";
+import CustomButton from "../CustomButton";
 
 interface ItemsSideBarProps {
     label: string;
-    icon: React.FC<{ size: number; className: string }>;
+    icon: React.FC<{ size?: number; className?: string }>;
     id: string;
     action: () => void;
 }
@@ -19,185 +14,41 @@ interface SideBarProps {
 }
 
 export default function SideBar({ items, active }: SideBarProps) {
-    const [openSideBar, setOpenSideBar] = useState<boolean>(true);
-    const [alert, setAlert] = useState<IAlert>({type: "info", title: "", message: "", duration: 4000, open: false});
-    const [nameUser, setNameUser] = useState<string>("Gabriel Neto");
-    const [typeUser, setTypeUser] = useState<string>("Manager");
-    const userService = new UsuarioService();
-
-    async function Logout() {
-        const response = await userService.logout();
-
-        if (response && response.success) {
-            window.location.reload();
-            return;
-        }
-        
-        setAlert({...alert, title: "Erro", message : "Não foi possível fazer logout.", type: "error", open: true});
-    };
-
     return (
-        <aside
-            className={`transition-all duration-300 ease-in-out p-4 relative overflow-hidden ${
-                openSideBar
-                    ? "min-w-[22%] max-w-[22%]"
-                    : "min-w-[7.5%] max-w-[7.5%]"
-            } `}
-        >
-            <Alert
-                type={alert.type}
-                title={alert.title}
-                message={alert.message}
-                duration={alert.duration}
-                onClose={() => setAlert({ ...alert, open: false })}
-                open={alert.open}
-            />
-            <div
-                className={`transition-all duration-300 ease-in-out bg-gradient-to-tl to-backgound-gray from-backgound-gray/85 h-full w-full ml-[1.5%] flex flex-col items-center p-6 justify-start rounded-4xl shadow-shadow shadow-[5px_5px_7px]`}
+        <>
+            <aside
+                className={`flex flex-col gap-2 w-72 h-full bg-foreground border-r border-border p-4`}
             >
-                {/* Logo */}
-                <div
-                    className={`transition-all duration-300 ease-in-out flex items-center justify-center ${
-                        openSideBar ? "gap-[5%] w-full" : "gap-0 w-14"
-                    } mb-8 relative`}
-                >
-                    {/* Logo em si */}
-                    <div
-                        onClick={() =>
-                            !openSideBar && setOpenSideBar(!openSideBar)
-                        }
-                    >
-                        <Logo
-                            className={`transition-all duration-300 ease-in-out w-14 ${
-                                !openSideBar && "in-hover:cursor-pointer"
-                            }`}
-                        />
-                    </div>
-                    {/* Texto da logo */}
-                    <div
-                        className={`transition-all duration-300 ease-in-out overflow-hidden m-0 p-0 ${
-                            openSideBar
-                                ? "w-full opacity-100 delay-75"
-                                : "w-0/1 opacity-0 hidden delay-150"
-                        }`}
-                    >
-                        <span
-                            className={`transition-all duration-300 ease-in-out text-xl font-semibold text-white select-none`}
-                        >
-                            Anotafy
-                        </span>
-                    </div>
-                    {/* botão de fechar a side bar */}
-                    <div
-                        className={`transition-all duration-300 ease-in-out relative h-full flex justify-end 
-                                    ${
-                                        openSideBar
-                                            ? "opacity-100 block"
-                                            : "opacity-0 pointer-events-none hidden"
-                                    }`}
-                    >
-                        <button
-                            className="transition-all duration-300 ease-in-out cursor-pointer absolute flex items-center justify-end bg-gray-600 py-1.5 rounded-l-lg top-[50%] -translate-y-[50%] -right-6 disabled:opacity-50"
-                            onClick={() => setOpenSideBar(!openSideBar)}
-                            disabled={!openSideBar}
-                        >
-                            <ChevronLeft
-                                className="transition-all duration-300 ease-in-out text-white w-[80%]"
-                                strokeWidth={3}
-                            />
-                        </button>
-                    </div>
-                </div>
-
-                {/* Menu Items */}
-                <nav className="transition-all duration-300 ease-in-out w-full flex flex-col gap-4 justify-center items-center">
-                    {items.map((item) => {
-                        const Icon = item.icon;
-                        const isActive = active === item.id;
-                        return (
-                            <button
-                                key={item.id}
-                                onClick={() => item.action()}
-                                className={`transition-all duration-300 ease-in-out cursor-pointer h-12 flex items-center px-3 py-3 rounded-lg overflow-hidden ${
-                                    isActive
-                                        ? "bg-primary text-white"
-                                        : "text-text-gray-light"
-                                }
-                                ${openSideBar ? "w-full" : "w-12"}
-                                    hover:bg-primary hover:text-white`}
-                            >
-                                <Space
-                                    width={`${openSideBar ? "full" : "0%"}`}
-                                    className="transition-all duration-300 ease-in-out "
-                                />
-                                <div
-                                    className={`transition-all duration-300 ease-in-out flex flex-row w-full items-center justify-center  ${
-                                        openSideBar ? "gap-1" : "gap-0"
-                                    }`}
-                                >
-                                    <Icon
-                                        size={20}
-                                        className="transition-all duration-300 ease-in-out shrink-0"
-                                    />
-                                    <span
-                                        aria-hidden={!openSideBar}
-                                        className={`transition-all duration-300 ease-in-out select-none font-medium  ${
-                                            openSideBar
-                                                ? "opacity-100 w-full"
-                                                : "opacity-0 w-0"
+                <div>
+                    {
+                        items.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <CustomButton
+                                    onClick={item.action}
+                                    className={`h-min w-full px-4 font-semibold gap-3 hover:bg-primary/10`}
+                                    label={item.label}
+                                    iconLeft={<Icon />}
+                                    position="left"
+                                    textColor={`
+                                        ${
+                                            active === item.id
+                                                ? "text-blue-800"
+                                                : "text-text"
                                         }`}
-                                    >
-                                        {item.label}
-                                    </span>
-                                </div>
-                                <Space
-                                    width={`${openSideBar ? "full" : "0%"}`}
-                                    className="transition-all duration-300 ease-in-out "
+                                    bgColor={`
+                                        ${
+                                            active === item.id
+                                                ? "bg-primary/10"
+                                                : "bg-transparent"
+                                        }
+                                    `}
                                 />
-                            </button>
-                        );
-                    })}
-                </nav>
-                <div className="transition-all duration-300 ease-in-out mt-auto w-full items-center flex flex-col gap-4">
-                    <div
-                        className={`transition-all duration-300 ease-in-out select-none flex flex-col   text-text-gray-light overflow-hidden ${
-                            openSideBar ? "w-full opacity-100" : "w-0 opacity-0"
-                        }`}
-                    >
-                        <span className="transition-all duration-300 ease-in-out font-bold text-xl">
-                            {nameUser}
-                        </span>
-                        <span className="transition-all duration-300 ease-in-out font-medium pl-2.5">
-                            {typeUser}
-                        </span>
-                    </div>
-                    <button
-                        onClick={Logout}
-                        className={`transition-all duration-300 ease-in-out cursor-pointer flex flex-row items-center justify-center   text-white bg-red-700 hover:bg-red-400 p-2 w-min rounded-xl hover:scale-103 ${
-                            openSideBar ? "px-6" : "px-2"
-                        }`}
-                    >
-                        <div
-                            className={`transition-all duration-300 ease-in-out flex flex-row w-min  ${
-                                openSideBar ? "gap-2" : "gap-0"
-                            }`}
-                        >
-                            <div>
-                                <LogOut strokeWidth="3" />
-                            </div>
-                            <div
-                                className={`transition-all duration-300 ease-in-out  whitespace-pre-line ${
-                                    openSideBar ? "w-full" : "w-0"
-                                } overflow-hidden`}
-                            >
-                                <span className="select-none transition-all duration-300 ease-in-out font-bold">
-                                    Logout
-                                </span>
-                            </div>
-                        </div>
-                    </button>
+                            );
+                        })
+                    }
                 </div>
-            </div>
-        </aside>
+            </aside>
+        </>
     );
 }

@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <div className="font-poppins">{children}</div>
+            <div className="">{children}</div>
         </ThemeContext.Provider>
     );
 }

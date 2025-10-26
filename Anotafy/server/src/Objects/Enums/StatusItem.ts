@@ -1,5 +1,5 @@
 export enum StatusItem {
-	NA_COZINHA,
-	PRONTO,
-	ENTREGUE,
+    NA_COZINHA = "NA_COZINHA",
+    PRONTO = "PRONTO",
+    ENTREGUE = "ENTREGUE",
 }
