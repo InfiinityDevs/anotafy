@@ -7,7 +7,6 @@ export class MesaRepository {
     async GetMesasForUser({id}: { id: number }): Promise<Mesa[]> {
         return await this.repo
             .createQueryBuilder("m")
-            .select("m.*")
             .innerJoin("m.Unidade", "u")
             .innerJoin("u.Usuarios", "usu")
             .where("usu.Id = :id", { id: id })

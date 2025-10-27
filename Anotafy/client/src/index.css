@@ -128,12 +128,83 @@
 
 @import "tailwindcss";
 
-html {
-  box-sizing: border-box;
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
+/* No seu arquivo CSS global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Faz a barra de endereço minimizar ao rolar */
+body {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Para Safari iOS - ocupa tela toda */
+@supports (-webkit-touch-callout: none) {
+  body {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Adicione no seu arquivo CSS global ou no styled-components */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ajustes para teclado mobile */
+.mobile-keyboard-fix {
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Quando o teclado estiver aberto em mobile */
+@media (max-height: 700px) {
+    .mobile-keyboard-fix {
+        max-height: 85vh;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Garantir que inputs não fiquem atrás do teclado */
+input, textarea {
+    font-size: 16px !important; /* Previne zoom no iOS */
+}
+
+/* Ajuste de viewport para iOS */
+@supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+        min-height: -webkit-fill-available;
+    }
 }
 
 @theme {

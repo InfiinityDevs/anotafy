@@ -1,10 +1,10 @@
 export const statusMesa = {
-    LIVRE: 0,
-    OCUPADA: 1,
-    EM_FECHAMENTO: 2,
-    AGUARDANDO_LIMPEZA: 3,
-    RESERVADA: 4,
-    BLOQUEADA: 5,
+    LIVRE : "LIVRE",
+    OCUPADA : "OCUPADA",
+    EM_FECHAMENTO : "EM_FECHAMENTO",
+    AGUARDANDO_LIMPEZA : "AGUARDANDO_LIMPEZA",
+    RESERVADA : "RESERVADA",
+    BLOQUEADA : "BLOQUEADA",
 } as const;
 
 export type StatusMesa = (typeof statusMesa)[keyof typeof statusMesa];

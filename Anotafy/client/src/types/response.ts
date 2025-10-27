@@ -22,6 +22,12 @@ export default class Response {
                 axiosResponse.message ||
                 "Erro";
             this.data = axiosResponse.response?.data || null;
+
+            
+            console.log("📥 Resposta do servidor:", this);
+            console.log("✅ Sucesso?", this.success);
+            console.log("📝 Mensagem:", this.message);
+            console.log("🔑 Token recebido?", this.data?.token);
         }
 
     }

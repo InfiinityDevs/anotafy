@@ -111,7 +111,9 @@ export class Unidade {
     })
     DataAtulizacao!: Date;
 
-    @ManyToOne(() => Empresa, (empresa) => empresa.Unidades, { nullable: false })
+    @ManyToOne(() => Empresa, (empresa) => empresa.Unidades, {
+        nullable: false,
+    })
     @JoinColumn({ name: "id_empresa" })
     Empresa!: Empresa;
 

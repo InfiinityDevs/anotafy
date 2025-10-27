@@ -4,8 +4,5 @@ export default class ResponseGetMesasDTO {
     id!: number;
     identificacao!: string;
     status!: StatusMesa;
-    capacidade?: number;
-    pessoas?: number; 
-    horaAbertura?: Date;
-    totalMesa?: number;
+    inicio?: Date;
 }

@@ -32,13 +32,12 @@ export default class UserController implements IController {
             // ✅ CONFIGURAÇÃO PARA DESENVOLVIMENTO
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production", // false em desenvolvimento
+                secure: false, // false em desenvolvimento
                 sameSite: "lax", // ou "none" se precisar
-                maxAge: 8 * 60 * 60 * 1000,
-                path: "/",
+                maxAge: 8 * 60 * 60 * 1000
             });
 
-            ResponseApi.Ok({ res, message: "Login bem-sucedido!" });
+            ResponseApi.Ok({ res, message: "Login bem-sucedido!", data: [token] });
         }
     };
 
@@ -49,10 +48,9 @@ export default class UserController implements IController {
     ) => {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // false em desenvolvimento
+            secure: false, // false em desenvolvimento
             sameSite: "lax", // ou "none" se precisar
-            maxAge: 8 * 60 * 60 * 1000,
-            path: "/",
+            maxAge: 8 * 60 * 60 * 1000
         });
 
         ResponseApi.Ok({ res, message: "Logout bem-sucedido!" });

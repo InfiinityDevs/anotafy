@@ -25,10 +25,19 @@ export class Comanda {
     })
     HoraAbertura!: Date;
 
-    @Column({ name: "hora_fechamento", type: "timestamp with time zone", nullable: false })
+    @Column({
+        name: "hora_fechamento",
+        type: "timestamp with time zone",
+        nullable: true,
+    })
     HoraFechamento!: Date;
 
-    @Column({ name: "status", type: "enum", nullable: false, enum: StatusComanda })
+    @Column({
+        name: "status",
+        type: "enum",
+        nullable: false,
+        enum: StatusComanda,
+    })
     Status!: StatusComanda;
 
     @Column({

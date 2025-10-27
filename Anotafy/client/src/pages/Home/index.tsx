@@ -9,7 +9,7 @@ import Configuracao from "./Configuracao";
 import Header from "../../components/Header";
 
 const enumItemsMenu = {
-    GARCOM: "garcom",
+    MESAS: "mesa",
     CAIXA: "caixa",
     FINANCEIRO: "financeiro",
     CONFIGURACAO: "config",
@@ -18,7 +18,7 @@ const enumItemsMenu = {
 type ItemsMenu = (typeof enumItemsMenu)[keyof typeof enumItemsMenu];
 
 const contentScreen: Record<ItemsMenu, ReactNode> = {
-    [enumItemsMenu.GARCOM]: <Mesa />,
+    [enumItemsMenu.MESAS]: <Mesa />,
     [enumItemsMenu.CAIXA]: <Caixa />,
     [enumItemsMenu.FINANCEIRO]: <Financeiro />,
     [enumItemsMenu.CONFIGURACAO]: <Configuracao />,
@@ -30,15 +30,15 @@ export default function Home() {
     }, []);
 
     const [activeScreen, setActiveScreen] = useState<ItemsMenu>(
-        enumItemsMenu.GARCOM
+        enumItemsMenu.MESAS
     );
 
     const sideBar = [
         {
-            label: "Garçom",
+            label: "Mesas",
             icon: HandPlatter,
-            id: enumItemsMenu.GARCOM,
-            action: () => setActiveScreen(enumItemsMenu.GARCOM),
+            id: enumItemsMenu.MESAS,
+            action: () => setActiveScreen(enumItemsMenu.MESAS),
         },
         {
             label: "Caixa",

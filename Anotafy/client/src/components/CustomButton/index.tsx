@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import React from "react";
 
 interface CustomButtonProps {
-    label?: string;
+    label?: string | React.ReactNode;
     position?: "left" | "right" | "center";
     sizeLabel?:
         | "xs"
@@ -38,7 +38,7 @@ export default function CustomButton({label, sizeLabel, iconLeft, iconRight, pos
             className={`flex flex-row gap-2 justify-${position} items-center ${bgColor} p-3 rounded-lg ${textColor} cursor-pointer ${sizeLabel && `text-${sizeLabel}`} ` + className} onClick={onClick}
         >
             {renderIcon(iconLeft) && renderIcon(iconLeft)}
-            <span>{label}</span>
+            {typeof label === "string" ? <span>{label}</span> : label}
             {renderIcon(iconRight) && renderIcon(iconRight)}
         </button>
     );

@@ -36,13 +36,15 @@ export default function Login() {
                     ...alert,
                     type: "success",
                     titulo: "Login efetuado com sucesso",
-                    message: "Você foi logado com sucesso! Redirecionando...",
+                    message: response.data || "Redirecionando...",
                     open: true,
                 });
 
+                console.log(response);
+
                 setTimeout(() => {
                     window.location.reload();
-                }, 1000);
+                }, 5000);
             } else {
                 setAlert({
                     ...alert,
@@ -78,7 +80,7 @@ export default function Login() {
                 duration={alert.duration}
                 onClose={() => setAlert({ ...alert, open: false })}
             />
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8 mobile-keyboard-fix">
                 <div className={`flex justify-center mb-4`}>
                     <Logo className="w-16" />
                 </div>

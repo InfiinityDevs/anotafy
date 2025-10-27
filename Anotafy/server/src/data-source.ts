@@ -14,14 +14,17 @@ const producao: DataSourceOptions = {
 };
 
 const postgres: DataSourceOptions = {
-	type: 'postgres',
-	host: 'localhost',
-	port: 5432,
-	username: 'neto',
-	password: '123456',
-	database: 'anotafy',
-	entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-	synchronize: true,
+    type: "postgres",
+    host: "localhost",
+    port: 5432,
+    username: "neto",
+    password: "123456",
+    database: "anotafy",
+    entities: [join(__dirname, "**", "*.entity.{ts,js}")],
+    synchronize: true,
+    extra: {
+        timezone: "America/Sao_Paulo"
+    }
 };
 
 const sqlite: DataSourceOptions = {

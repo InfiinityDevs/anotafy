@@ -8,13 +8,19 @@ interface IRequestConfig {
 }
 
 export class BaseService {
-    private baseUrl: string = "http://localhost:8080/api/v1";
+    private baseUrl: string;
 
     constructor(base: string) {
-        this.baseUrl += base;
+        // Use o IP da sua máquina ou variável de ambiente
+        console.log("🌐 Ambiente:", import.meta.env);
+        const API_HOST =
+            import.meta.env.MODE === "development"
+                ? "http://192.168.0.112:8080"
+                : "http://localhost:8080"; // Fallback
+
+        this.baseUrl = `${API_HOST}/api/v1${base}`;
     }
 
-    // baseService.ts - MELHOR TRATAMENTO
     public async request({
         method,
         endpoint,
@@ -27,9 +33,10 @@ export class BaseService {
                 "Content-Type": "application/json",
             },
             data: data,
-            withCredentials: true,
+            withCredentials: true, // ✅ Isso está correto para cookies
         };
 
+        console.log("📥 Requisição:", config);
 
         try {
             const response = await axios.request(config);

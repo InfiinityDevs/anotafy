@@ -11,11 +11,15 @@ export class ItemComanda {
     @PrimaryColumn({ name: "id_produto", type: "int" })
     ProdutoId!: number;
 
-    @ManyToOne(() => Comanda, (comanda) => comanda.ItensComanda, { nullable: false })
+    @ManyToOne(() => Comanda, (comanda) => comanda.ItensComanda, {
+        nullable: false,
+    })
     @JoinColumn({ name: "id_comanda" })
     Comanda!: Comanda;
 
-    @ManyToOne(() => Produto, (produto) => produto.ItensComanda, { nullable: false })
+    @ManyToOne(() => Produto, (produto) => produto.ItensComanda, {
+        nullable: false,
+    })
     @JoinColumn({ name: "id_produto" })
     Produto!: Produto;
 
