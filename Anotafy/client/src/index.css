@@ -136,6 +136,34 @@ body,
     padding: 0;
 }
 
+/* Ajustes para teclado mobile */
+.mobile-keyboard-fix {
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Quando o teclado estiver aberto em mobile */
+@media (max-height: 700px) {
+    .mobile-keyboard-fix {
+        max-height: 85vh;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Garantir que inputs não fiquem atrás do teclado */
+input, textarea {
+    font-size: 16px !important; /* Previne zoom no iOS */
+}
+
+/* Ajuste de viewport para iOS */
+@supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+        min-height: -webkit-fill-available;
+    }
+}
+
 /* Adicione no seu arquivo CSS global ou no styled-components */
 .custom-scrollbar {
   scrollbar-width: thin;
