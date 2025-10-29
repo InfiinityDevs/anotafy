@@ -90,7 +90,7 @@ export default function Login() {
                     Sistema para a gestão do seu restaurante!
                 </p>
 
-                <div className="space-y-6">
+                <div className="space-y-6 mb-2">
                     <div>
                         <Input
                             type="text"
@@ -99,7 +99,8 @@ export default function Login() {
                             placeholder="Digite seu usuário"
                             label="Usuário"
                             disabled={loading}
-                            required={true}
+                            classLabel="block mb-2 text-lg font-medium text-gray-700"
+                            required
                             iconLeft={<Mail size={20} />}
                         />
                     </div>
@@ -112,6 +113,7 @@ export default function Login() {
                             onChange={setSenha}
                             placeholder="Digite sua senha"
                             label="Senha"
+                            classLabel="block mb-2 text-lg font-medium text-gray-700"
                             disabled={loading}
                             required={true}
                             iconLeft="lock"
@@ -130,7 +132,15 @@ export default function Login() {
                                     Esqueci minha senha
                                 </button>
                             </div>
-                            <span>Ainda nao possui uma conta? <a href="/register" className="underline border-b border-transparent hover:border-blue-500 text-blue-600 font-medium hover:underline">Cadastrar-se</a></span>
+                            <span>
+                                Ainda nao possui uma conta?{" "}
+                                <a
+                                    href="/register"
+                                    className="underline border-b border-transparent hover:border-blue-500 text-blue-600 font-medium hover:underline"
+                                >
+                                    Cadastrar-se
+                                </a>
+                            </span>
                         </div>
                     </div>
 

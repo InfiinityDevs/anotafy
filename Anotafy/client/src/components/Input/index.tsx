@@ -2,18 +2,22 @@ import { Eye, EyeOff, Lock, type LucideIcon } from "lucide-react";
 import React, { useState } from "react";
 
 interface InputProps {
-    type?: "text" | "password" | "email";
-    value: string;
+    type?: "text" | "password" | "email" | "date" | "number" | "tel" | "url";
+    value: string | number;
     onChange: (value: string) => void;
     onEnter?: () => void;
     placeholder: string;
-    label?: string | undefined;
+    label?: string;
+    classLabel?: string; // ✅ Nova prop
     disabled?: boolean;
     required?: boolean;
     iconLeft?: "lock" | React.ReactNode | LucideIcon | undefined;
     iconRight?: "lock" | React.ReactNode | LucideIcon | undefined;
     className?: string;
     bgInput?: string;
+    min?: string;
+    max?: string;
+    step?: string;
 }
 
 export default function Input({
@@ -23,12 +27,16 @@ export default function Input({
     onEnter,
     placeholder,
     label,
+    classLabel = "block text-md font-medium text-gray-700 mb-2", // ✅ Valor padrão
     disabled = false,
     required = false,
     iconLeft,
     iconRight,
     className,
     bgInput = "bg-gray-100",
+    min,
+    max,
+    step,
 }: InputProps) {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === "password";
@@ -48,17 +56,23 @@ export default function Input({
         return null;
     };
 
+    const inputValue = value?.toString() || "";
+
     return (
         <div className={className ? className : "w-full"}>
             {label && (
-                <label className="block text-md font-medium text-gray-500 mb-2">
+                <label className={classLabel}>
+                    {" "}
                     {label}
+                    {required && <span className="text-red-500 ml-1">*</span>}
                 </label>
             )}
-            <div className={ `flex items-center w-full ${bgInput} border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 px-2.5` }>
+            <div
+                className={`flex items-center w-full ${bgInput} border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 px-3 py-2`}
+            >
                 {/* Ícone esquerdo */}
                 {renderIcon(iconLeft) && (
-                    <div className="mr-2 text-gray-500">
+                    <div className="mr-2 text-gray-500 shrink-0">
                         {renderIcon(iconLeft)}
                     </div>
                 )}
@@ -76,15 +90,19 @@ export default function Input({
                     })}
                     onChange={(e) => onChange(e.target.value)}
                     type={currentType}
-                    className="px-2 py-3 w-full bg-transparent border-none outline-none rounded-lg text-gray-500"
+                    className="flex-1 px-1 py-1 w-full bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 disabled:opacity-50"
                     placeholder={placeholder}
                     required={required}
-                    value={value}
+                    value={inputValue}
                     disabled={disabled}
+                    min={min}
+                    max={max}
+                    step={step}
                 />
+
                 {/* Ícone direito */}
                 {renderIcon(iconRight) && (
-                    <div className="ml-2 text-gray-500">
+                    <div className="ml-2 text-gray-500 shrink-0">
                         {renderIcon(iconRight)}
                     </div>
                 )}
@@ -94,7 +112,7 @@ export default function Input({
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="text-gray-500 hover:text-gray-700 shrink-0 ml-2"
                         disabled={disabled}
                     >
                         {showPassword ? (
