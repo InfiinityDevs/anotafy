@@ -21,7 +21,6 @@ export default class UserController implements IController {
         this.router.post("/logout", this.Logout);
     }
 
-    // UserController - login
     private Login = async (req: Request, res: Response, next: NextFunction) => {
         const request: RequestLoginDTO = new RequestLoginDTO(req.body);
         const user: Usuario = await this.userService.LoginUser(request);
@@ -29,15 +28,24 @@ export default class UserController implements IController {
         if (user) {
             const token = JwtService.GenerateToken({ id: user.Id });
 
-            // ✅ CONFIGURAÇÃO PARA DESENVOLVIMENTO
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: false, // false em desenvolvimento
-                sameSite: "lax", // ou "none" se precisar
-                maxAge: 8 * 60 * 60 * 1000
+                secure: false,
+                sameSite: "lax",
+                maxAge: 8 * 60 * 60 * 1000, // 8 horas
+                path: "/",
             });
 
-            ResponseApi.Ok({ res, message: "Login bem-sucedido!", data: [token] });
+            // ✅ REMOVA O TOKEN DO RESPONSE BODY
+            ResponseApi.Ok({
+                res,
+                message: "Login bem-sucedido!",
+            });
+
+            console.log(
+                "✅ Login realizado - Cookie setado para usuário:",
+                user.Login
+            );
         }
     };
 
@@ -50,7 +58,8 @@ export default class UserController implements IController {
             httpOnly: true,
             secure: false, // false em desenvolvimento
             sameSite: "lax", // ou "none" se precisar
-            maxAge: 8 * 60 * 60 * 1000
+            maxAge: 8 * 60 * 60 * 1000,
+            path: "/",
         });
 
         ResponseApi.Ok({ res, message: "Logout bem-sucedido!" });

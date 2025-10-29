@@ -7,25 +7,34 @@ interface IRequestConfig {
     data?: any;
 }
 
+// BaseService.ts - Para produção com domínios diferentes
 export class BaseService {
     private baseUrl: string;
 
     constructor(base: string) {
-        // Use o IP da sua máquina ou variável de ambiente
-        console.log("🌐 Ambiente:", import.meta.env);
-        const API_HOST =
-            import.meta.env.MODE === "development"
-                ? "http://192.168.0.112:8080"
-                : "http://localhost:8080"; // Fallback
+        
+        if (import.meta.env.PROD) {
+            console.log("🌐 Ambiente de Produção");
+            this.baseUrl = `https://api.meusite.com/api/v1${base}`;
+        } else {
+            console.log("🌐 Ambiente de Desenvolvimento");
+            const currentOrigin = window.location.origin;
+            const isLocalhost = currentOrigin.includes('localhost') || 
+                               currentOrigin.includes('127.0.0.1');
+            
+            this.baseUrl = isLocalhost 
+                ? `http://localhost:8080/api/v1${base}`
+                : `http://192.168.0.112:8080/api/v1${base}`;
+        }
 
-        this.baseUrl = `${API_HOST}/api/v1${base}`;
+        console.log("🌐 Configuração:", {
+            ambiente: import.meta.env.PROD,
+            frontend: window.location.origin,
+            backend: this.baseUrl
+        });
     }
 
-    public async request({
-        method,
-        endpoint,
-        data = undefined,
-    }: IRequestConfig): Promise<Response> {
+    public async request({ method, endpoint, data = undefined }: IRequestConfig): Promise<Response> {
         const config: any = {
             method: method,
             url: this.baseUrl + endpoint,
@@ -33,15 +42,24 @@ export class BaseService {
                 "Content-Type": "application/json",
             },
             data: data,
-            withCredentials: true, // ✅ Isso está correto para cookies
+            withCredentials: true,
         };
 
-        console.log("📥 Requisição:", config);
+        console.log("📤 Requisição Cross-Domain:", {
+            from: window.location.origin,
+            to: config.url,
+            withCredentials: config.withCredentials
+        });
 
         try {
             const response = await axios.request(config);
             return new Response(response);
         } catch (error: any) {
+            console.error("❌ Erro Cross-Domain:", {
+                message: error.message,
+                status: error.response?.status,
+                url: config.url
+            });
             return new Response(error);
         }
     }

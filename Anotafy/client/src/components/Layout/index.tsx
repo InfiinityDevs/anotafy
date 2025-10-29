@@ -9,7 +9,7 @@ type LayoutProps = {
 
 export default function Layout({ sidebar, content, header }: LayoutProps) {
     return (
-        <div className="w-full h-screen flex flex-col overflow-hidden">
+        <div className="w-full my-h-screen flex flex-col overflow-hidden">
             {header}
             <div className="flex flex-col md:flex-row h-full w-full min-h-0">
                 <div className="hidden md:flex">{sidebar}</div>

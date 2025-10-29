@@ -136,24 +136,6 @@ body,
     padding: 0;
 }
 
-/* No seu arquivo CSS global */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Faz a barra de endereço minimizar ao rolar */
-body {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Para Safari iOS - ocupa tela toda */
-@supports (-webkit-touch-callout: none) {
-  body {
-    height: -webkit-fill-available;
-  }
-}
-
 /* Adicione no seu arquivo CSS global ou no styled-components */
 .custom-scrollbar {
   scrollbar-width: thin;
@@ -179,32 +161,14 @@ body {
   background: #94a3b8;
 }
 
-/* Ajustes para teclado mobile */
-.mobile-keyboard-fix {
-    max-height: 90vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+.my-min-h-screen {
+  min-height: 100vh; /* fallback */
+  min-height: 100dvh; /* usa a altura dinâmica da viewport */
 }
 
-/* Quando o teclado estiver aberto em mobile */
-@media (max-height: 700px) {
-    .mobile-keyboard-fix {
-        max-height: 85vh;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-}
-
-/* Garantir que inputs não fiquem atrás do teclado */
-input, textarea {
-    font-size: 16px !important; /* Previne zoom no iOS */
-}
-
-/* Ajuste de viewport para iOS */
-@supports (-webkit-touch-callout: none) {
-    .min-h-screen {
-        min-height: -webkit-fill-available;
-    }
+.my-h-screen {
+  height: 100vh; /* fallback */
+  height: 100dvh; /* ajusta automaticamente */
 }
 
 @theme {

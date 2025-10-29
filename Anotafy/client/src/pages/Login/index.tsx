@@ -36,15 +36,13 @@ export default function Login() {
                     ...alert,
                     type: "success",
                     titulo: "Login efetuado com sucesso",
-                    message: response.data || "Redirecionando...",
+                    message: response.message || "Redirecionando...",
                     open: true,
                 });
 
                 console.log(response);
 
-                setTimeout(() => {
-                    window.location.reload();
-                }, 5000);
+                window.location.reload();
             } else {
                 setAlert({
                     ...alert,
@@ -118,18 +116,21 @@ export default function Login() {
                             required={true}
                             iconLeft="lock"
                         />
-                        <div className="mt-3 flex items-center justify-between mb-8">
-                            <RadioButton
-                                selected={remember}
-                                onChange={setRemember}
-                                label={"Lembrar-me"}
-                            />
-                            <button
-                                type="button"
-                                className="text-sm font-medium text-blue-500 hover:underline"
-                            >
-                                Esqueci minha senha
-                            </button>
+                        <div>
+                            <div className="mt-3 flex items-center justify-between mb-8">
+                                <RadioButton
+                                    selected={remember}
+                                    onChange={setRemember}
+                                    label={"Lembrar-me"}
+                                />
+                                <button
+                                    type="button"
+                                    className="text-sm font-medium text-blue-500 hover:underline"
+                                >
+                                    Esqueci minha senha
+                                </button>
+                            </div>
+                            <span>Ainda nao possui uma conta? <a href="/register" className="underline border-b border-transparent hover:border-blue-500 text-blue-600 font-medium hover:underline">Cadastrar-se</a></span>
                         </div>
                     </div>
 
