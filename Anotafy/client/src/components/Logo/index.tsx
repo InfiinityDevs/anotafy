@@ -7,9 +7,9 @@ interface LogoProps {
 export default function Logo({ className = "" }: LogoProps) {
     return (
         <div
-            className={`flex aspect-square items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-backgound-gray text-white ${className}`}
+            className={`flex aspect-square items-center justify-center rounded-[30%] bg-linear-to-br from-primary ${className}`}
         >
-            <ChefHat className="h-[55%] w-[55%]" />
+            <ChefHat className="h-[55%] w-[55%] shrink-0" />
         </div>
     );
 }

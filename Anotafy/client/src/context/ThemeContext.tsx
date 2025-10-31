@@ -6,7 +6,7 @@ interface ThemeContextType {
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
-    theme: 'default',
+    theme: "default",
     toggleTheme: () => {},
 });
 
@@ -15,31 +15,27 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-    const [theme, setTheme] = useState('default');
+    const [theme, setTheme] = useState("default");
 
     useEffect(() => {
-        setTheme(localStorage.getItem('theme') ?? 'default');
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('theme', theme);
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
     const toggleTheme = () => {
-        if (theme === 'default') {
-            setTheme('dark');
-        } else if (theme === 'dark') {
-            setTheme('red');
+        if (theme === "default") {
+            setTheme("dark");
+        } else if (theme === "dark") {
+            setTheme("red");
         } else {
-            setTheme('default');
+            setTheme("default");
         }
 
-            document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute("data-theme", theme);
     };
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <div className="font-poppins">{children}</div>
+            <div className="">{children}</div>
         </ThemeContext.Provider>
     );
 }

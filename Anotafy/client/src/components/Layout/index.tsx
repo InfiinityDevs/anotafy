@@ -4,16 +4,17 @@ import type { ReactNode } from "react";
 type LayoutProps = {
     sidebar: ReactNode;
     content: ReactNode;
+    header: ReactNode;
 };
 
-export default function Layout({ sidebar, content }: LayoutProps) {
+export default function Layout({ sidebar, content, header }: LayoutProps) {
     return (
-        <div className="w-full h-screen bg-backgound">
-            <div className="relative flex flex-row h-full w-full">
-                {sidebar}
-                <main className="py-12 w-full h-full">
-                    {content}
-                </main>
+        <div className="w-full my-h-screen flex flex-col overflow-hidden">
+            {header}
+            <div className="flex flex-col md:flex-row h-full w-full min-h-0">
+                <div className="hidden md:flex">{sidebar}</div>
+                <div className="w-full h-full bg-backgound overflow-hidden">{content}</div>
+                <div className="flex flex-1 md:hidden">{sidebar}</div>
             </div>
         </div>
     );

@@ -1,11 +1,11 @@
 import { Router } from "express";
 import fs from "fs";
 import path from "path";
-import { IController } from "./contracts/IController";
+import { IController } from "./Contracts/IController";
 
 const cRouter = Router();
 
-const controllersPath = path.join(__dirname, "controllers");
+const controllersPath = path.join(__dirname, "Controllers");
 
 fs.readdirSync(controllersPath).forEach((fileOrDir) => {
     const fullPath = path.join(controllersPath, fileOrDir);
