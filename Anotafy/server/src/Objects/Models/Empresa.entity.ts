@@ -41,7 +41,7 @@ export class Empresa {
         name: "telefone_principal",
         type: "varchar",
         length: 11,
-        nullable: true,
+        nullable: false,
     })
     TelefonePrincipal!: string;
 

@@ -93,7 +93,8 @@ export default function Alert({
     return (
         <div
             className={`
-                fixed top-4 right-4 w-96 z-50 
+                z-50
+                fixed top-4 right-4 w-95/100 ml-24 sm:w-96
                 border rounded-xl flex p-4 
                 shadow-lg transition-all duration-300
                 ${config.class}
@@ -126,7 +127,7 @@ export default function Alert({
             {/* Botão Fechar */}
             <button
                 onClick={handleClose}
-                className="flex-shrink-0 ml-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                className="shrink-0 ml-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                 aria-label="Fechar alerta"
             >
                 <CircleX size={20} className={config.button} />

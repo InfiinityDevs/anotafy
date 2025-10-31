@@ -1,5 +1,5 @@
 import { Eye, EyeOff, Lock, type LucideIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, type InputHTMLAttributes } from "react";
 
 interface InputProps {
     type?: "text" | "password" | "email" | "date" | "number" | "tel" | "url";
@@ -8,16 +8,20 @@ interface InputProps {
     onEnter?: () => void;
     placeholder: string;
     label?: string;
-    classLabel?: string; // ✅ Nova prop
+    classLabel?: string;
+    classInput?: string;
     disabled?: boolean;
     required?: boolean;
     iconLeft?: "lock" | React.ReactNode | LucideIcon | undefined;
     iconRight?: "lock" | React.ReactNode | LucideIcon | undefined;
     className?: string;
     bgInput?: string;
+    border?: string | undefined;
     min?: string;
     max?: string;
     step?: string;
+    classDivIn? : string;
+    inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"];
 }
 
 export default function Input({
@@ -28,6 +32,8 @@ export default function Input({
     placeholder,
     label,
     classLabel = "block text-md font-medium text-gray-700 mb-2", // ✅ Valor padrão
+    classDivIn = "",
+    classInput = "",
     disabled = false,
     required = false,
     iconLeft,
@@ -37,11 +43,12 @@ export default function Input({
     min,
     max,
     step,
+    inputMode,
+    border = "gray-300",
 }: InputProps) {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === "password";
     const currentType = isPassword && showPassword ? "text" : type;
-
     const renderIcon = (
         icon: "lock" | React.ReactNode | LucideIcon | undefined
     ) => {
@@ -68,7 +75,10 @@ export default function Input({
                 </label>
             )}
             <div
-                className={`flex items-center w-full ${bgInput} border border-gray-300 rounded-lg transition-all focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 px-3 py-2`}
+                className={
+                    classDivIn +
+                    ` flex items-center w-full ${bgInput} border border-${border} rounded-lg transition-all focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 px-3 py-2`
+                }
             >
                 {/* Ícone esquerdo */}
                 {renderIcon(iconLeft) && (
@@ -88,9 +98,13 @@ export default function Input({
                             }
                         },
                     })}
+                    inputMode={inputMode}
                     onChange={(e) => onChange(e.target.value)}
                     type={currentType}
-                    className="flex-1 px-1 py-1 w-full bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 disabled:opacity-50"
+                    className={
+                        classInput +
+                        " flex-1 px-1 py-1 w-full bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 disabled:opacity-50"
+                    }
                     placeholder={placeholder}
                     required={required}
                     value={inputValue}

@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { cn } from "../../utils/ClassNames";
 
 interface DropdownOption {
     value: any;
@@ -150,15 +151,17 @@ export function DropDown({
                         setSearch("");
                     }
                 }}
-                className={`
+                className={cn(
+                    `
                     w-full px-4 py-2 ${height}
-                    bg-white border border-gray-300 rounded-lg
+                    border border-gray-300 rounded-lg
                     flex items-center justify-between
                     transition-all duration-200
                     hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                     disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed
-                    ${buttonClassName}
-                `}
+                  `,
+                    buttonClassName
+                )}
             >
                 <div className="flex items-center gap-2 truncate">
                     {selectedOption?.icon && <span>{selectedOption.icon}</span>}
@@ -179,13 +182,16 @@ export function DropDown({
             {/* Dropdown Menu */}
             {isOpen && (
                 <div
-                    className={`
+                    className={
+                        dropdownClassName +
+                        ` 
+                        placeholder:text-gray-300
                         absolute top-full mt-1 ${width} ${maxHeight}
                         bg-white rounded-lg shadow-xl border border-gray-200 
                         overflow-hidden z-50 animate-scale-in
                         ${getPositionClass()}
-                        ${dropdownClassName}
-                    `}
+                    `
+                    }
                 >
                     {/* Campo de busca (se searchable) */}
                     {searchable && (

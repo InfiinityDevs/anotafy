@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import React from "react";
 
-interface CustomButtonProps {
+interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string | React.ReactNode;
     position?: "left" | "right" | "center";
     sizeLabel?:

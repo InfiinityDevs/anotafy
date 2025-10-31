@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import ErrorServer from "./pages/ErrorServer";
-import Register from "./pages/Login/Register";
+import Registro from "./pages/Login/Register";
 
 export default function Routers() {
     return (
@@ -11,7 +11,7 @@ export default function Routers() {
                 <Route path="*" element={<NotFound />} />
                 <Route path="/error" element={<ErrorServer />} />
                 <Route path="/" element={<Auth />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<Registro />} />
             </Routes>
         </Router>
     );
