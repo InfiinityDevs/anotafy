@@ -1,7 +1,17 @@
+"use client";
+
+import useAuth from "@/hooks/useAuth";
+
 export default function Home() {
-    return (
-        <div>
-            <h1>Home</h1>
-        </div>
-    );
+    const { isAuthenticated } = useAuth();
+
+    if (isAuthenticated === null) {
+        return <div>Verificando autenticação...</div>;
+    }
+
+    if (!isAuthenticated) {
+        return <div>Redirecionando para login...</div>;
+    }
+
+    return <main></main>;
 }

@@ -8,7 +8,6 @@ import RadioButton from "../../components/RadioButton";
 import Input from "../../components/Input";
 
 export default function Login() {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
     const [login, setLogin] = useState<string>("");
     const [senha, setSenha] = useState<string>("");
     const [remember, setRemember] = useState<boolean>(false);
@@ -54,7 +53,7 @@ export default function Login() {
                     open: true,
                 });
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error("❌ Erro no login:", error);
             setAlert({
                 ...alert,
