@@ -5,12 +5,16 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { loginAction } from "@/lib/auth";
 import { Eye, EyeOff, KeyRound, LucideIcon, Mail } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState<{ icon: LucideIcon; type: string }>({ icon: Eye, type: "password" });
+    const [loadingLogin, setLoadingLogin] = useState(false);
+    const [login, setLogin] = useState("");
+    const [senha, setSenha] = useState("");
     
     const handlePassword = () => {
         if (showPassword.type === "password") {
@@ -18,6 +22,12 @@ export default function Login() {
         } else {
             setShowPassword({ icon: Eye, type: "password" });
         }
+    }
+
+    const handleLogin = async () => {
+        setLoadingLogin(true);
+        const retorno = await loginAction({ login, senha });
+        console.log(retorno);
     }
 
     return (
@@ -30,6 +40,7 @@ export default function Login() {
                 </div>
 
                 <div className="flex flex-col">
+
                     <div>
                         <Label
                             htmlFor="login"
@@ -44,6 +55,7 @@ export default function Login() {
                                 id="login"
                                 className="h-12 border-0 shadow-none focus-visible:ring-0"
                                 placeholder="Digite o usuário"
+                                onChange={(e) => setLogin(e.target.value)}
                             />
                         </div>
                     </div>
@@ -63,13 +75,14 @@ export default function Login() {
                                 id="login"
                                 className="h-12 border-0 shadow-none focus-visible:ring-0"
                                 placeholder="Digite o usuário"
+                                onChange={(e) => setSenha(e.target.value)}
                             />
                             <showPassword.icon size={27} className="text-gray-500" onClick={handlePassword} />
                         </div>
                     </div>
 
                     <div className="flex flex-col mt-2">
-                        <div className="flex items-center justify-between px-2">
+                        <div className="flex items-center justify-between px-2 mb-7">
                             <div className="flex items-start gap-3">
                                 <Checkbox id="lembrar" />
                                 <Label htmlFor="lembrar" className="font-normal text-md">
@@ -81,7 +94,7 @@ export default function Login() {
                         <p className="mt-2">Ainda não possui uma conta? <a href="/register" className="text-blue-700 underline">Cadastrar-se</a></p>
                     </div>
 
-                    <Button className="text-lg font-semibold h-10 mt-3">Entrar</Button>
+                    <Button className={ `text-lg font-semibold h-10 mt-3 ${loadingLogin && "bg-primary/50"}` } onClick={handleLogin}>{ loadingLogin ? "Entrando..." : "Entrar" }</Button>
 
                 </div>
             </Card>

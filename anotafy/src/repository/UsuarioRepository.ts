@@ -1,7 +1,7 @@
 "use server";
 import { YesNo } from "@/generated/prisma/enums";
 import { CreateUsuario } from "@/types/types";
-import { prisma } from "@/utils/prisma";
+import { prisma } from "@/lib/prisma";
 
 const repo = prisma.usuario;
 
@@ -23,7 +23,7 @@ export async function createUsuario(usuario: CreateUsuario) {
 export async function findUsuarioByLogin(login: string) {
     return repo.findFirst({
         where: {
-            login,
+            login: login,
         },
     });
 }
