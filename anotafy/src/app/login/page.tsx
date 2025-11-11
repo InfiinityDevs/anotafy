@@ -5,30 +5,62 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { loginAction } from "@/lib/auth";
+import { Auth } from "@/lib/auth";
 import { Eye, EyeOff, KeyRound, LucideIcon, Mail } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Login() {
-    const [showPassword, setShowPassword] = useState<{ icon: LucideIcon; type: string }>({ icon: Eye, type: "password" });
+    const router = useRouter();
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                if (await Auth.checkAuth())
+                    router.push("/home");
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        checkAuth();
+    }, [router]);
+
+    const [showPassword, setShowPassword] = useState<{
+        icon: LucideIcon;
+        type: string;
+    }>({ icon: Eye, type: "password" });
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
-    
+
     const handlePassword = () => {
         if (showPassword.type === "password") {
             setShowPassword({ icon: EyeOff, type: "text" });
         } else {
             setShowPassword({ icon: Eye, type: "password" });
         }
-    }
+    };
 
     const handleLogin = async () => {
         setLoadingLogin(true);
-        const retorno = await loginAction({ login, senha });
-        console.log(retorno);
-    }
+
+        try {
+            const retorno = await Auth.loginAction({ login, senha });
+            console.log(retorno);
+
+            if (retorno) {
+                router.push("/home");
+            } else {
+                console.error("Erro no login:", retorno);
+            }
+        } catch (error) {
+            console.error("Erro no login:", error);
+        } finally {
+            setLoadingLogin(false);
+        }
+    };
 
     return (
         <main className="w-full h-screen flex justify-center items-center bg-gray-100">
@@ -40,7 +72,6 @@ export default function Login() {
                 </div>
 
                 <div className="flex flex-col">
-
                     <div>
                         <Label
                             htmlFor="login"
@@ -76,8 +107,13 @@ export default function Login() {
                                 className="h-12 border-0 shadow-none focus-visible:ring-0"
                                 placeholder="Digite o usuário"
                                 onChange={(e) => setSenha(e.target.value)}
+                                onEnter={handleLogin}
                             />
-                            <showPassword.icon size={27} className="text-gray-500" onClick={handlePassword} />
+                            <showPassword.icon
+                                size={27}
+                                className="text-gray-500"
+                                onClick={handlePassword}
+                            />
                         </div>
                     </div>
 
@@ -85,17 +121,39 @@ export default function Login() {
                         <div className="flex items-center justify-between px-2 mb-7">
                             <div className="flex items-start gap-3">
                                 <Checkbox id="lembrar" />
-                                <Label htmlFor="lembrar" className="font-normal text-md">
+                                <Label
+                                    htmlFor="lembrar"
+                                    className="font-normal text-md"
+                                >
                                     Lembrar-me
                                 </Label>
                             </div>
-                            <a href="/alter-password" className="text-md text-blue-700 underline">Esqueci minha senha</a>
+                            <a
+                                href="/alter-password"
+                                className="text-md text-blue-700 underline"
+                            >
+                                Esqueci minha senha
+                            </a>
                         </div>
-                        <p className="mt-2">Ainda não possui uma conta? <a href="/register" className="text-blue-700 underline">Cadastrar-se</a></p>
+                        <p className="mt-2">
+                            Ainda não possui uma conta?{" "}
+                            <a
+                                href="/register"
+                                className="text-blue-700 underline"
+                            >
+                                Cadastrar-se
+                            </a>
+                        </p>
                     </div>
 
-                    <Button className={ `text-lg font-semibold h-10 mt-3 ${loadingLogin && "bg-primary/50"}` } onClick={handleLogin}>{ loadingLogin ? "Entrando..." : "Entrar" }</Button>
-
+                    <Button
+                        className={`text-lg font-semibold h-10 mt-3 ${
+                            loadingLogin && "bg-primary/50"
+                        }`}
+                        onClick={handleLogin}
+                    >
+                        {loadingLogin ? "Entrando..." : "Entrar"}
+                    </Button>
                 </div>
             </Card>
         </main>

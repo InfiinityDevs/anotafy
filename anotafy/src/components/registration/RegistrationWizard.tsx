@@ -27,6 +27,7 @@ type Step = 1 | 2 | 3 | 4;
 export function RegistrationWizard() {
     const [currentStep, setCurrentStep] = useState<Step>(1);
     const [loading, setLoading] = useState<boolean>(false);
+    const [finality, setFinality] = useState<boolean>(false);
     const [empresaData, setEmpresaData] = useState<CreateEmpresa>({
         cnae_principal: null,
         cnpj_raiz: null,
@@ -125,8 +126,10 @@ export function RegistrationWizard() {
                 unidade: unidadeData,
                 usuario: usuarioData,
             });
+            console.log(result);
             if (result) {
-                setLoading(false);
+                setFinality(false);
+                return;
             }
         } catch (error) {
             console.error(error);
@@ -159,7 +162,7 @@ export function RegistrationWizard() {
     return (
         <div className="space-y-8">
             {/* Modal de Carregamento */}
-            <Dialog open={true}>{renderModal(false)}</Dialog>
+            <Dialog open={loading}>{renderModal(finality)}</Dialog>
             {/* Stepper */}
             <div className="flex items-center justify-center">
                 <div className="flex items-center gap-2 md:gap-4 mb-2">
