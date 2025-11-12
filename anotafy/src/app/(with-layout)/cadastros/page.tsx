@@ -33,8 +33,8 @@ import {
     ArrowLeft,
     ChefHat,
 } from "lucide-react";
+import Overflow from "@/components/ui/overflow";
 
-// Tipos para os dados
 interface Produto {
     id: number;
     nome: string;
@@ -86,7 +86,7 @@ type TelaAtiva =
     | "fornecedores"
     | "formas-pagamento";
 
-export default function Cadastros() {
+export default function CadastrosPage() {
     const [telaAtiva, setTelaAtiva] = useState<TelaAtiva>("menu");
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -302,7 +302,6 @@ export default function Cadastros() {
         );
     };
 
-    // Renderizar conteúdo baseado na tela ativa
     const renderConteudo = () => {
         if (telaAtiva === "menu") {
             return (
@@ -338,8 +337,10 @@ export default function Cadastros() {
                             return (
                                 <Card
                                     key={card.id}
-                                    className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-gray-200"
-                                    onClick={() => setTelaAtiva(card.id as TelaAtiva)}
+                                    className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-gray-100 hover:border-gray-300"
+                                    onClick={() =>
+                                        setTelaAtiva(card.id as TelaAtiva)
+                                    }
                                 >
                                     <CardHeader className="pb-3">
                                         <div className="flex items-center justify-between">
@@ -783,10 +784,9 @@ export default function Cadastros() {
     };
 
     return (
-        <div className="p-6 h-full overflow-y-auto">
-            {renderConteudo()}
-            {renderConteudo()}
-        </div>
+        <Overflow>
+            <div className="p-6 h-full">{renderConteudo()}</div>
+        </Overflow>
     );
 }
 
