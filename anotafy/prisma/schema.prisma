@@ -115,6 +115,7 @@ model Categoria {
     id          Int      @id @default(autoincrement())
     nome        String   @db.VarChar(100)
     descricao   String?  @db.VarChar(500)
+    status      YesNo    @default(YES)
 
     data_cadastro    DateTime @default(now())
     data_atualizacao DateTime @updatedAt

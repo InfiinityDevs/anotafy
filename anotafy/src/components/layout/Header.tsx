@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
+import { Auth } from "@/lib/auth";
 
 export default function Header() {
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [notifications, setNotifications] = useState(3);
+    const [notifications] = useState(3);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -179,9 +180,12 @@ export default function Header() {
                             <span>Configurações</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-red-600">
+                        <DropdownMenuItem
+                            className="flex items-center gap-2 cursor-pointer "
+                            onClick={Auth.logoutAction}
+                        >
                             <LogOut className="h-4 w-4" />
-                            <span>Sair</span>
+                            <span className="font-medium">Sair</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

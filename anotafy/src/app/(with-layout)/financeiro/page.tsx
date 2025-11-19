@@ -1,7 +1,3 @@
 export default function FinanceiroPage() {
-    return (
-        <div>
-            Financeiro
-        </div>
-    );
+    return <div>Financeiro</div>;
 }

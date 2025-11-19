@@ -51,3 +51,6 @@ export class EnumUtils {
         return this.formatLabel(String(value));
     }
 }
+
+export const simulateDelay = (ms = 2000) =>
+    new Promise((resolve) => setTimeout(resolve, ms));

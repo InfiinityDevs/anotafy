@@ -66,7 +66,7 @@ export async function serverLoginAction({
         });
 
         // Redirecionar para dashboard
-        redirect("/home");
+        redirect("/dashboard");
     } catch (error) {
         console.error("Erro no login:", error);
         return { success: false, error: "Erro interno do servidor" };

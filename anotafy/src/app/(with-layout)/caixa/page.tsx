@@ -1,7 +1,3 @@
 export default function CaixaPage() {
-    return (
-        <div>
-            Caixa
-        </div>
-    );
+    return <div>Caixa</div>;
 }

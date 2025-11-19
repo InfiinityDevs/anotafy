@@ -10,6 +10,7 @@ import { Eye, EyeOff, KeyRound, LucideIcon, Mail } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Login() {
     const router = useRouter();
@@ -17,8 +18,7 @@ export default function Login() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                if (await Auth.checkAuth())
-                    router.push("/home");
+                if (await Auth.checkAuth()) router.push("/dashboard");
             } catch (error) {
                 console.log(error);
             }
@@ -51,7 +51,8 @@ export default function Login() {
             console.log(retorno);
 
             if (retorno) {
-                router.push("/home");
+                toast.success("Login realizado com sucesso!", { duration: 2000 });
+                router.push("/dashboard");
             } else {
                 console.error("Erro no login:", retorno);
             }

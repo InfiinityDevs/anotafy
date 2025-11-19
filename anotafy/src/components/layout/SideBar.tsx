@@ -4,15 +4,17 @@ import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { PageType } from "@/app/(with-layout)/layout";
+import { usePathname } from "next/navigation";
 
 export interface SideBarProps {
-    active: string;
     items: ItemSideBarProps[];
-    setter: (value: PageType) => void;
 }
 
-export default function SideBar({ active, items, setter }: SideBarProps) {
+export default function SideBar({ items }: SideBarProps) {
+    const pathname = usePathname();
+    const activeId =
+        pathname === "/" ? "dashboard" : pathname.split("/")[1] || "dashboard";
+
     return (
         <nav className="w-full flex flex-col gap-1 p-4 bg-white h-full border-r border-gray-200 shadow-sm">
             <div className="mb-4 px-2">
@@ -23,15 +25,16 @@ export default function SideBar({ active, items, setter }: SideBarProps) {
 
             <div className="flex flex-col gap-1">
                 {items.map((item) => {
-                    const isActive = active === String(item.children);
+                    const isActive =
+                        activeId === item.id ||
+                        pathname.startsWith(`/${item.id}/`);
                     return (
                         <ItemSideBar
-                            id = {item.id}
+                            id={item.id}
                             key={String(item.children)}
                             icon={item.icon}
                             className="w-full transition-all duration-200"
                             variant={isActive ? "default" : "ghost"}
-                            onClick={() => setter(item.children as PageType)}
                             isActive={isActive}
                         >
                             {item.children}
@@ -59,7 +62,6 @@ export interface ItemSideBarProps {
     id: string;
     variant?: "ghost" | "default";
     className?: string;
-    onClick?: () => void;
     isActive?: boolean;
 }
 
@@ -68,17 +70,14 @@ function ItemSideBar({
     children,
     variant = "ghost",
     id,
-    onClick,
     className,
     isActive = false,
-
 }: ItemSideBarProps) {
     const Icon = icon;
 
     return (
         <Link href={"/" + id}>
             <button
-                onClick={onClick}
                 className={cn(
                     "rounded-lg px-3 py-2 cursor-pointer text-start transition-all duration-200 group",
                     "hover:translate-x-1 hover:shadow-sm",

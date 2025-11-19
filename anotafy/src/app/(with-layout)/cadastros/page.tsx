@@ -34,7 +34,44 @@ import {
     ChefHat,
 } from "lucide-react";
 import Overflow from "@/components/ui/overflow";
+import Link from "next/link";
 
+// region Icones
+const Truck = ({ className }: { className?: string }) => (
+    <svg
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM12 8h5l-5 6h5m-7-6h.01"
+        />
+    </svg>
+);
+
+const CreditCard = ({ className }: { className?: string }) => (
+    <svg
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+        />
+    </svg>
+);
+
+// endregion
+
+// region Interfaces
 interface Produto {
     id: number;
     nome: string;
@@ -42,13 +79,6 @@ interface Produto {
     preco: number;
     estoque: number;
     status: "ativo" | "inativo";
-}
-
-interface Categoria {
-    id: number;
-    nome: string;
-    descricao: string;
-    produtosCount: number;
 }
 
 interface Mesa {
@@ -76,6 +106,67 @@ interface CardCadastro {
     quantidade: number;
 }
 
+// endregion
+
+const cardsCadastros: CardCadastro[] = [
+    {
+        id: "produtos",
+        titulo: "Produtos",
+        descricao: "Cadastre e gerencie os produtos do cardápio",
+        icone: Package,
+        cor: "bg-blue-500",
+        quantidade: 45,
+    },
+    {
+        id: "categorias",
+        titulo: "Categorias",
+        descricao: "Organize produtos em categorias",
+        icone: Tag,
+        cor: "bg-green-500",
+        quantidade: 8,
+    },
+    {
+        id: "mesas",
+        titulo: "Mesas",
+        descricao: "Configure mesas e capacidades",
+        icone: Utensils,
+        cor: "bg-purple-500",
+        quantidade: 12,
+    },
+    {
+        id: "usuarios",
+        titulo: "Usuários",
+        descricao: "Gerencie acessos ao sistema",
+        icone: Users,
+        cor: "bg-orange-500",
+        quantidade: 6,
+    },
+    {
+        id: "funcionarios",
+        titulo: "Funcionários",
+        descricao: "Cadastro de colaboradores",
+        icone: ChefHat,
+        cor: "bg-red-500",
+        quantidade: 15,
+    },
+    {
+        id: "fornecedores",
+        titulo: "Fornecedores",
+        descricao: "Fornecedores e parceiros",
+        icone: Truck,
+        cor: "bg-indigo-500",
+        quantidade: 23,
+    },
+    {
+        id: "formas-pagamento",
+        titulo: "Formas de Pagamento",
+        descricao: "Configure métodos de pagamento",
+        icone: CreditCard,
+        cor: "bg-emerald-500",
+        quantidade: 5,
+    },
+];
+
 type TelaAtiva =
     | "menu"
     | "produtos"
@@ -90,67 +181,7 @@ export default function CadastrosPage() {
     const [telaAtiva, setTelaAtiva] = useState<TelaAtiva>("menu");
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Cards do menu principal
-    const cardsCadastros: CardCadastro[] = [
-        {
-            id: "produtos",
-            titulo: "Produtos",
-            descricao: "Cadastre e gerencie os produtos do cardápio",
-            icone: Package,
-            cor: "bg-blue-500",
-            quantidade: 45,
-        },
-        {
-            id: "categorias",
-            titulo: "Categorias",
-            descricao: "Organize produtos em categorias",
-            icone: Tag,
-            cor: "bg-green-500",
-            quantidade: 8,
-        },
-        {
-            id: "mesas",
-            titulo: "Mesas",
-            descricao: "Configure mesas e capacidades",
-            icone: Utensils,
-            cor: "bg-purple-500",
-            quantidade: 12,
-        },
-        {
-            id: "usuarios",
-            titulo: "Usuários",
-            descricao: "Gerencie acessos ao sistema",
-            icone: Users,
-            cor: "bg-orange-500",
-            quantidade: 6,
-        },
-        {
-            id: "funcionarios",
-            titulo: "Funcionários",
-            descricao: "Cadastro de colaboradores",
-            icone: ChefHat,
-            cor: "bg-red-500",
-            quantidade: 15,
-        },
-        {
-            id: "fornecedores",
-            titulo: "Fornecedores",
-            descricao: "Fornecedores e parceiros",
-            icone: Truck,
-            cor: "bg-indigo-500",
-            quantidade: 23,
-        },
-        {
-            id: "formas-pagamento",
-            titulo: "Formas de Pagamento",
-            descricao: "Configure métodos de pagamento",
-            icone: CreditCard,
-            cor: "bg-emerald-500",
-            quantidade: 5,
-        },
-    ];
-
-    // Dados mockados
+    // region Moks
     const produtos: Produto[] = [
         {
             id: 1,
@@ -183,33 +214,6 @@ export default function CadastrosPage() {
             preco: 18.9,
             estoque: 0,
             status: "inativo",
-        },
-    ];
-
-    const categorias: Categoria[] = [
-        {
-            id: 1,
-            nome: "Pizzas",
-            descricao: "Pizzas diversas",
-            produtosCount: 15,
-        },
-        {
-            id: 2,
-            nome: "Lanches",
-            descricao: "Hambúrgueres e sanduíches",
-            produtosCount: 12,
-        },
-        {
-            id: 3,
-            nome: "Bebidas",
-            descricao: "Refrigerantes e sucos",
-            produtosCount: 25,
-        },
-        {
-            id: 4,
-            nome: "Sobremesas",
-            descricao: "Doces e sorvetes",
-            produtosCount: 8,
         },
     ];
 
@@ -275,6 +279,8 @@ export default function CadastrosPage() {
         },
     ];
 
+    // endregion
+
     const getStatusBadge = (status: string) => {
         const variants = {
             ativo: "bg-green-100 text-green-800",
@@ -305,7 +311,7 @@ export default function CadastrosPage() {
     const renderConteudo = () => {
         if (telaAtiva === "menu") {
             return (
-                <div className="space-y-6">
+                <div className="space-y-6 p-6">
                     {/* Cabeçalho */}
                     <div className="flex justify-between items-center">
                         <div>
@@ -335,41 +341,45 @@ export default function CadastrosPage() {
                         {cardsCadastros.map((card) => {
                             const Icon = card.icone;
                             return (
-                                <Card
+                                <Link
+                                    href={"/cadastros/" + card.id}
                                     key={card.id}
-                                    className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-gray-100 hover:border-gray-300"
-                                    onClick={() =>
-                                        setTelaAtiva(card.id as TelaAtiva)
-                                    }
                                 >
-                                    <CardHeader className="pb-3">
-                                        <div className="flex items-center justify-between">
-                                            <div
-                                                className={`p-3 rounded-lg ${card.cor}`}
-                                            >
-                                                <Icon className="h-6 w-6 text-white" />
+                                    <Card
+                                        className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-gray-100 hover:border-gray-300"
+                                        onClick={() =>
+                                            setTelaAtiva(card.id as TelaAtiva)
+                                        }
+                                    >
+                                        <CardHeader className="pb-3">
+                                            <div className="flex items-center justify-between">
+                                                <div
+                                                    className={`p-3 rounded-lg ${card.cor}`}
+                                                >
+                                                    <Icon className="h-6 w-6 text-white" />
+                                                </div>
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="text-sm"
+                                                >
+                                                    {card.quantidade}
+                                                </Badge>
                                             </div>
-                                            <Badge
-                                                variant="secondary"
-                                                className="text-sm"
-                                            >
-                                                {card.quantidade}
-                                            </Badge>
-                                        </div>
-                                        <CardTitle className="text-xl">
-                                            {card.titulo}
-                                        </CardTitle>
-                                        <CardDescription className="text-base">
-                                            {card.descricao}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="flex items-center text-sm text-blue-600 font-medium">
-                                            <span>Gerenciar</span>
-                                            <ArrowLeft className="h-4 w-4 ml-1 rotate-180" />
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                                            <CardTitle className="text-xl">
+                                                {card.titulo}
+                                            </CardTitle>
+                                            <CardDescription className="text-base">
+                                                {card.descricao}
+                                            </CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="flex items-center text-sm text-blue-600 font-medium">
+                                                <span>Gerenciar</span>
+                                                <ArrowLeft className="h-4 w-4 ml-1 rotate-180" />
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             );
                         })}
                     </div>
@@ -573,56 +583,7 @@ export default function CadastrosPage() {
                 );
 
             case "categorias":
-                return (
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Categorias</CardTitle>
-                            <CardDescription>
-                                Organize seus produtos em categorias
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {categorias.map((categoria) => (
-                                    <Card
-                                        key={categoria.id}
-                                        className="cursor-pointer hover:shadow-md transition-shadow"
-                                    >
-                                        <CardHeader className="pb-3">
-                                            <CardTitle className="text-lg flex justify-between items-start">
-                                                {categoria.nome}
-                                                <Badge variant="secondary">
-                                                    {categoria.produtosCount}{" "}
-                                                    produtos
-                                                </Badge>
-                                            </CardTitle>
-                                            <CardDescription>
-                                                {categoria.descricao}
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="flex gap-2">
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                >
-                                                    <Edit className="h-4 w-4" />
-                                                </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    className="text-red-600"
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
-                );
+                <div>teste</div>;
 
             case "mesas":
                 return (
@@ -783,42 +744,5 @@ export default function CadastrosPage() {
         }
     };
 
-    return (
-        <Overflow>
-            <div className="p-6 h-full">{renderConteudo()}</div>
-        </Overflow>
-    );
+    return <Overflow>{renderConteudo()}</Overflow>;
 }
-
-// Componentes auxiliares (adicione esses ícones)
-const Truck = ({ className }: { className?: string }) => (
-    <svg
-        className={className}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM12 8h5l-5 6h5m-7-6h.01"
-        />
-    </svg>
-);
-
-const CreditCard = ({ className }: { className?: string }) => (
-    <svg
-        className={className}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-        />
-    </svg>
-);

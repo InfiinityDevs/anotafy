@@ -1,7 +1,3 @@
 export default function RelatoriosPage() {
-    return (
-        <div>
-            Relatorios
-        </div>
-    );
+    return <div>Relatórios</div>;
 }
