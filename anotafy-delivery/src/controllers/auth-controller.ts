@@ -10,13 +10,7 @@ export type LoginFormState = {
     error: string | null;
 };
 
-export async function loginAction(
-    _prevState: LoginFormState,
-    formData: FormData
-): Promise<LoginFormState> {
-    const login = formData.get("login");
-    const password = formData.get("password");
-
+export async function loginAction({login, password}: {login: string; password: string}): Promise<LoginFormState> {
     if (!login || !password) {
         return { error: "Informe login e senha." };
     }

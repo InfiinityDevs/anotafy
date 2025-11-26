@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getUser as getUser } from "@/lib/auth";
+import { getUser } from "@/lib/auth";
 import { LoginForm } from "@/components/LoginForm";
 
 export default async function LoginPage() {
@@ -10,7 +10,7 @@ export default async function LoginPage() {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray">
+        <div className="flex items-center justify-center h-screen bg-gray-100">
             <LoginForm />
         </div>
     );
