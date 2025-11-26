@@ -121,6 +121,7 @@ export interface Categoria {
     data_atualizacao: Date;
     pai_id: number | null;
     unidade_id: number;
+    status: YesNo;
 
     // Relacionamentos
     pai?: Categoria | null;

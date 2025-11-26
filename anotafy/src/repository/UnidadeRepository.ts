@@ -1,6 +1,5 @@
 "use server";
-import { StatusUnidade } from "@/generated/prisma/enums";
-import { CreateUnidade } from "@/types/types";
+import { CreateUnidade, StatusUnidade } from "@/types/types";
 import { prisma } from "@/lib/prisma";
 
 const repo = prisma.unidade;

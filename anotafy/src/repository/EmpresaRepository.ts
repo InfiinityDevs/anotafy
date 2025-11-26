@@ -1,6 +1,5 @@
 "use server";
-import { StatusEmpresa } from "@/generated/prisma/enums";
-import { CreateEmpresa } from "@/types/types";
+import { CreateEmpresa, StatusEmpresa } from "@/types/types";
 import { prisma } from "@/lib/prisma";
 
 const repo = prisma.empresa;

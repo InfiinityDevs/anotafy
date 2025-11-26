@@ -138,3 +138,4 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 Anotafy/server/package-lock.json
+anotafy-delivery/pnpm-lock.yaml

@@ -1,6 +1,5 @@
 "use server";
-import { YesNo } from "@/generated/prisma/enums";
-import { CreateUsuario } from "@/types/types";
+import { CreateUsuario, YesNo } from "@/types/types";
 import { prisma } from "@/lib/prisma";
 
 const repo = prisma.usuario;

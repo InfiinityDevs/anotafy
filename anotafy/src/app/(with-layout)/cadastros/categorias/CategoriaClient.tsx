@@ -136,7 +136,7 @@ export default function CategoriaClient({ data }: { data: DataCategoria }) {
                                         >
                                             <TableCell>
                                                 {" "}
-                                                {categoria.categoria}{" "}
+                                                {categoria.categoriaName}{" "}
                                             </TableCell>
                                             <TableCell>
                                                 {categoria.categoriaSuperior ??

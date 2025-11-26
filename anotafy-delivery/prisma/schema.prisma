@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// --- USUÁRIOS E AUTENTICAÇÃO ---
+
+model User {
+  id        Int      @id @default(autoincrement())
+  login     String   @unique
+  password  String
+  type_user TypeUser
+  active    Boolean  @default(true)
+
+  client   Client?
+  employee Employee?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TypeUser {
+  CLIENT
+  EMPLOYEE
+  ADMIN
+}
+
+// --- CLIENTES ---
+
+model Client {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+  phone String?
+
+  user_id Int  @unique
+  user    User @relation(fields: [user_id], references: [id])
+
+  addresses Address[]
+  orders    Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id           Int     @id @default(autoincrement())
+  street       String
+  number       String
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  zip_code     String
+
+  client_id Int
+  client    Client @relation(fields: [client_id], references: [id])
+
+  orders Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --- EMPRESA E FUNCIONÁRIOS ---
+
+model Enterprise {
+  id       Int     @id @default(autoincrement())
+  name     String
+  cnpj_cpf String  @unique @db.VarChar(14)
+  address  String?
+  active   Boolean @default(true)
+
+  positions  Position[]
+  employees  Employee[]
+  categories Category[]
+  products   Product[]
+  orders     Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Position {
+  id            Int     @id @default(autoincrement())
+  title         String
+  description   String?
+  enterprise_id Int
+
+  enterprise Enterprise @relation(fields: [enterprise_id], references: [id])
+  employees  Employee[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Employee {
+  id            Int    @id @default(autoincrement())
+  name          String
+  position_id   Int
+  user_id       Int    @unique
+  enterprise_id Int
+
+  position   Position   @relation(fields: [position_id], references: [id])
+  user       User       @relation(fields: [user_id], references: [id])
+  enterprise Enterprise @relation(fields: [enterprise_id], references: [id])
+
+  status_changes HistoryOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --- PRODUTOS E CATÁLOGO ---
+
+model Category {
+  id            Int     @id @default(autoincrement())
+  name          String
+  description   String?
+  active        Boolean @default(true)
+  parent_id     Int?
+  enterprise_id Int
+
+  enterprise Enterprise @relation(fields: [enterprise_id], references: [id])
+  parent     Category?  @relation("CategoryToCategory", fields: [parent_id], references: [id])
+  children   Category[] @relation("CategoryToCategory")
+  products   Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id            Int     @id @default(autoincrement())
+  name          String
+  description   String?
+  price         Decimal @db.Decimal(10, 2)
+  quantity      Int?    @default(0)
+  active        Boolean @default(true)
+  category_id   Int
+  enterprise_id Int
+
+  category   Category   @relation(fields: [category_id], references: [id])
+  enterprise Enterprise @relation(fields: [enterprise_id], references: [id])
+
+  photos     Photo[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Photo {
+  id         Int      @id @default(autoincrement())
+  url        String
+  product_id Int
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// --- PEDIDOS ---
+
+model Order {
+  id            Int         @id @default(autoincrement())
+  total         Decimal     @db.Decimal(10, 2)
+  status        StatusOrder @default(PENDING)
+  type_order    TypeOrder
+  payment_method PaymentMethod?
+
+  client_id     Int?
+  address_id    Int?
+  enterprise_id Int
+
+  client     Client?     @relation(fields: [client_id], references: [id])
+  address    Address?    @relation(fields: [address_id], references: [id])
+  enterprise Enterprise  @relation(fields: [enterprise_id], references: [id])
+
+  items      OrderItem[]
+  history    HistoryOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  quantity   Int
+  unit_price Decimal @db.Decimal(10, 2)
+
+  order_id   Int
+  product_id Int
+
+  order   Order   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HistoryOrder {
+  id          Int         @id @default(autoincrement())
+  status      StatusOrder
+
+  order_id    Int
+  employee_id Int?
+
+  order    Order     @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  employee Employee? @relation(fields: [employee_id], references: [id])
+
+  changedAt DateTime @default(now())
+}
+
+// --- ENUMS ---
+
+enum TypeOrder {
+  DELIVERY
+  WITHDRAWAL
+  ON_SITE
+}
+
+enum StatusOrder {
+  PENDING
+  IN_PROGRESS
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  COMPLETED
+  CANCELED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  PIX
+  CASH
+  MEAL_VOUCHER
+}
