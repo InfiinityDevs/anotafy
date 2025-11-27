@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import deliveryHero from "@/assets/ilustration-login.png";
 
-export function LoginForm() {
+export default function LoginForm() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
@@ -62,11 +62,8 @@ export function LoginForm() {
                         Entrar
                     </Button>
 
-                    <span className="text-center text-sm text-muted-foreground">
-                        Não tem uma conta?{" "}
-                        <a href="#" className="underline">
-                            Cadastrar-se
-                        </a>
+                   <span className="text-center text-muted-foreground">
+                        Não tem uma conta? <a href="/register" className="text-primary font-medium hover:text-primary/80">Cadastre-se</a>
                     </span>
                 </Card>
             </div>

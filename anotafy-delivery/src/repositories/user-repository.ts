@@ -19,4 +19,10 @@ export class UserRepository {
             data,
         });
     }
+
+    async finByLogin(login: string): Promise<User | null> {
+        return await prisma.user.findUnique({
+            where: { login: login },
+        });
+    }
 }

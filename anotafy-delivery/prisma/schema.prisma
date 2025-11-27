@@ -101,6 +101,9 @@ model Position {
 model Employee {
   id            Int    @id @default(autoincrement())
   name          String
+  email         String @unique
+  phone         String?
+
   position_id   Int
   user_id       Int    @unique
   enterprise_id Int
